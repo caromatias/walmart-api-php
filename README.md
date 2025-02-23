@@ -35,7 +35,7 @@ If you've found any of our packages useful, please consider [becoming a Sponsor]
 
 ## Installation
 
-`composer require highsidelabs/walmart-api`
+`composer require caromatias/walmart-api`
 
 ## Why make this library?
 
