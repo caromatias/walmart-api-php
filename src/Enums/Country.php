@@ -8,4 +8,5 @@ final class Country extends AbstractEnum
     public const CA = 'ca';
     public const MX = 'mx';
     public const US = 'us';
+    public const CL = 'cl';
 }
