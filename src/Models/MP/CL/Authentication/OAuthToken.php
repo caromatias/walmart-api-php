@@ -266,7 +266,6 @@ class OAuthToken extends BaseModel
         if (is_null($refreshToken)) {
             throw new \InvalidArgumentException('non-nullable refreshToken cannot be null');
         }
-
         $this->container['refreshToken'] = $refreshToken;
         return $this;
     }
