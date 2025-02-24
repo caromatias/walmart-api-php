@@ -2,6 +2,7 @@
 
 namespace Walmart\Apis\MP;
 
+use PHPUnit\Framework\Constraint\Count;
 use Walmart\Apis\MP\CA;
 use Walmart\Apis\MP\MX;
 use Walmart\Apis\MP\US;
@@ -21,6 +22,7 @@ class MarketplaceApi extends Walmart
         'auth' => [
             Country::MX => MX\AuthenticationApi::class,
             Country::US => US\AuthenticationApi::class,
+            Country::CL => CL\AuthenticationApi::class,
         ],
         'events' => [
             Country::CA => CA\EventsApi::class,
@@ -29,6 +31,7 @@ class MarketplaceApi extends Walmart
             Country::CA => CA\FeedsApi::class,
             Country::MX => MX\FeedsApi::class,
             Country::US => US\FeedsApi::class,
+            Country::CL => CL\FeedsApi::class,
         ],
         'fulfillment' => [
             Country::US => US\FulfillmentApi::class,
@@ -40,11 +43,13 @@ class MarketplaceApi extends Walmart
             Country::CA => CA\InventoryApi::class,
             Country::MX => MX\InventoryApi::class,
             Country::US => US\InventoryApi::class,
+            Country::CL => CL\InventoryApi::class,
         ],
         'items' => [
             Country::CA => CA\ItemsApi::class,
             Country::MX => MX\ItemsApi::class,
             Country::US => US\ItemsApi::class,
+            Country::CL => CL\ItemsApi::class,
         ],
         'lagTime' => [
             Country::US => US\LagTimeApi::class,
@@ -59,16 +64,19 @@ class MarketplaceApi extends Walmart
             Country::CA => CA\OrdersApi::class,
             Country::MX => MX\OrdersApi::class,
             Country::US => US\OrdersApi::class,
+            Country::CL => CL\OrdersApi::class,
         ],
         'prices' => [
             Country::CA => CA\PricesApi::class,
             Country::MX => MX\PricesApi::class,
             Country::US => US\PricesApi::class,
+            Country::CL => CL\PricesApi::class,
         ],
         'promotion' => [
             Country::CA => CA\PromotionApi::class,
             Country::MX => MX\PromotionApi::class,
             Country::US => US\PromotionApi::class,
+            Country::CL => CL\PromotionApi::class,
         ],
         'reports' => [
             Country::CA => CA\ReportsApi::class,
