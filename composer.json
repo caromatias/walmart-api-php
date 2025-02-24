@@ -1,6 +1,6 @@
 {
     "name": "caromatias/walmart-api",
-    "version": "0.7.4",
+    "version": "0.7.5",
     "description": "A PHP client for Walmart's Marketplace, 1P Supplier, and Content Provider APIs.",
     "keywords": [
         "walmart",
