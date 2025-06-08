@@ -667,7 +667,7 @@ class ItemsApi extends BaseApi
         );
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/xml'],
+            ['application/json'],
             $contentType,
             $multipart
         );

@@ -89,11 +89,11 @@ class BaseApi
     protected function getDefaultHeaders(): array
     {
         return [
-            'WM_SVC.NAME' => 'highsidelabs/walmart-api/' . Walmart::VERSION,
+            'WM_SVC.NAME' => 'caromatias/walmart-api/' . Walmart::VERSION,
             'WM_QOS.CORRELATION_ID' => Uuid::uuid4()->toString(),
             // These aren't required by every endpoint, but many use them and passing the when they're
             // not needed doesn't adversely affect the request
-            'WM_MARKET' => strtoupper($this->config->getCountry()),
+            'WM_MARKET' => strtolower($this->config->getCountry()),
             'WM_SEC.TIMESTAMP' => round(microtime(true) * 1000),
         ];
     }

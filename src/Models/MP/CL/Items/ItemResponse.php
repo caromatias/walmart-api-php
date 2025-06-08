@@ -164,6 +164,8 @@ class ItemResponse extends BaseModel
 
     public const MART_WALMART_MEXICO = 'WALMART_MEXICO';
 
+    public const MART_WALMART_CL = 'WALMART_CL';
+
     /**
      * Gets allowable values of the enum
      *
@@ -176,6 +178,7 @@ class ItemResponse extends BaseModel
             self::MART_WALMART_CA,
             self::MART_ASDA_GM,
             self::MART_WALMART_MEXICO,
+            self::MART_WALMART_CL,
         ];
     }
 

@@ -77,7 +77,7 @@ class ItemResponses extends BaseModel
       */
     protected static array $openAPINullables = [
         'errors' => false,
-        'itemResponse' => false,
+        'itemResponse' => true,
         'totalItems' => false,
         'nextCursor' => false
     ];
@@ -90,7 +90,7 @@ class ItemResponses extends BaseModel
      */
     protected static array $attributeMap = [
         'errors' => 'errors',
-        'itemResponse' => 'itemResponse',
+        'itemResponse' => 'ItemResponse',
         'totalItems' => 'totalItems',
         'nextCursor' => 'nextCursor'
     ];
@@ -142,10 +142,6 @@ class ItemResponses extends BaseModel
     {
         $invalidProperties = [];
 
-        if ($this->container['itemResponse'] === null) {
-            $invalidProperties[] = "'itemResponse' can't be null";
-        }
-
         return $invalidProperties;
     }
 
@@ -181,7 +177,7 @@ class ItemResponses extends BaseModel
     /**
      * Gets itemResponse
      *
-     * @return \Walmart\Models\MP\CL\Items\ItemResponse[]
+     * @return \Walmart\Models\MP\CL\Items\ItemResponse[]|null
     
      */
     public function getItemResponse()
@@ -192,17 +188,13 @@ class ItemResponses extends BaseModel
     /**
      * Sets itemResponse
      *
-     * @param \Walmart\Models\MP\CL\Items\ItemResponse[] $itemResponse Items included in the response list
+     * @param \Walmart\Models\MP\CL\Items\ItemResponse[]|null $itemResponse Items included in the response list
      *
      * @return self
     
      */
     public function setItemResponse($itemResponse)
     {
-        if (is_null($itemResponse)) {
-            throw new \InvalidArgumentException('non-nullable itemResponse cannot be null');
-        }
-
         $this->container['itemResponse'] = $itemResponse;
         return $this;
     }
