@@ -27,7 +27,6 @@ use Walmart\Models\BaseModel;
  * Item Class Doc Comment
  *
  * @category Class
-
  * @package  Walmart
  * @author   Jesse Evers
  * @link     https://highsidelabs.co
@@ -50,14 +49,9 @@ class Item extends BaseModel
       * @var string[]
       */
     protected static array $openAPITypes = [
-        'upc' => 'string',
         'productName' => 'string',
         'sku' => 'string',
-        'condition' => 'string',
-        'imageUrl' => 'string',
-        'unitPrice' => '\Walmart\Models\MP\CL\Orders\UnitPrice',
-        'commission' => '\Walmart\Models\MP\CL\Orders\Commission',
-        'unitPriceWithoutTax' => '\Walmart\Models\MP\CL\Orders\UnitPriceWithoutTax'
+        'quantity' => 'int'
     ];
 
     /**
@@ -68,14 +62,9 @@ class Item extends BaseModel
       * @psalm-var array<string, string|null>
       */
     protected static array $openAPIFormats = [
-        'upc' => null,
         'productName' => null,
         'sku' => null,
-        'condition' => null,
-        'imageUrl' => null,
-        'unitPrice' => null,
-        'commission' => null,
-        'unitPriceWithoutTax' => null
+        'quantity' => 'int32'
     ];
 
     /**
@@ -84,14 +73,9 @@ class Item extends BaseModel
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'upc' => false,
         'productName' => false,
         'sku' => false,
-        'condition' => false,
-        'imageUrl' => false,
-        'unitPrice' => false,
-        'commission' => false,
-        'unitPriceWithoutTax' => false
+        'quantity' => false
     ];
 
     /**
@@ -101,14 +85,9 @@ class Item extends BaseModel
      * @var string[]
      */
     protected static array $attributeMap = [
-        'upc' => 'upc',
         'productName' => 'productName',
         'sku' => 'sku',
-        'condition' => 'condition',
-        'imageUrl' => 'imageUrl',
-        'unitPrice' => 'unitPrice',
-        'commission' => 'commission',
-        'unitPriceWithoutTax' => 'unitPriceWithoutTax'
+        'quantity' => 'quantity'
     ];
 
     /**
@@ -117,14 +96,9 @@ class Item extends BaseModel
      * @var string[]
      */
     protected static array $setters = [
-        'upc' => 'setUpc',
         'productName' => 'setProductName',
         'sku' => 'setSku',
-        'condition' => 'setCondition',
-        'imageUrl' => 'setImageUrl',
-        'unitPrice' => 'setUnitPrice',
-        'commission' => 'setCommission',
-        'unitPriceWithoutTax' => 'setUnitPriceWithoutTax'
+        'quantity' => 'setQuantity'
     ];
 
     /**
@@ -133,14 +107,9 @@ class Item extends BaseModel
      * @var string[]
      */
     protected static array $getters = [
-        'upc' => 'getUpc',
         'productName' => 'getProductName',
         'sku' => 'getSku',
-        'condition' => 'getCondition',
-        'imageUrl' => 'getImageUrl',
-        'unitPrice' => 'getUnitPrice',
-        'commission' => 'getCommission',
-        'unitPriceWithoutTax' => 'getUnitPriceWithoutTax'
+        'quantity' => 'getQuantity'
     ];
 
     /**
@@ -151,14 +120,9 @@ class Item extends BaseModel
      */
     public function __construct(array $data = null)
     {
-        $this->setIfExists('upc', $data ?? [], null);
         $this->setIfExists('productName', $data ?? [], null);
         $this->setIfExists('sku', $data ?? [], null);
-        $this->setIfExists('condition', $data ?? [], null);
-        $this->setIfExists('imageUrl', $data ?? [], null);
-        $this->setIfExists('unitPrice', $data ?? [], null);
-        $this->setIfExists('commission', $data ?? [], null);
-        $this->setIfExists('unitPriceWithoutTax', $data ?? [], null);
+        $this->setIfExists('quantity', $data ?? [], null);
     }
 
     /**
@@ -170,44 +134,23 @@ class Item extends BaseModel
     {
         $invalidProperties = [];
 
+        if ($this->container['productName'] === null) {
+            $invalidProperties[] = "'productName' can't be null";
+        }
+        if ($this->container['sku'] === null) {
+            $invalidProperties[] = "'sku' can't be null";
+        }
+        if ($this->container['quantity'] === null) {
+            $invalidProperties[] = "'quantity' can't be null";
+        }
 
         return $invalidProperties;
     }
 
     /**
-     * Gets upc
-     *
-     * @return string|null
-    
-     */
-    public function getUpc()
-    {
-        return $this->container['upc'];
-    }
-
-    /**
-     * Sets upc
-     *
-     * @param string|null $upc Unique product code of the product associated with the line item
-     *
-     * @return self
-    
-     */
-    public function setUpc($upc)
-    {
-        if (is_null($upc)) {
-            throw new \InvalidArgumentException('non-nullable upc cannot be null');
-        }
-
-        $this->container['upc'] = $upc;
-        return $this;
-    }
-
-    /**
      * Gets productName
      *
-     * @return string|null
-    
+     * @return string
      */
     public function getProductName()
     {
@@ -217,10 +160,9 @@ class Item extends BaseModel
     /**
      * Sets productName
      *
-     * @param string|null $productName The name of the product associated with the line item
+     * @param string $productName productName
      *
      * @return self
-    
      */
     public function setProductName($productName)
     {
@@ -235,8 +177,7 @@ class Item extends BaseModel
     /**
      * Gets sku
      *
-     * @return string|null
-    
+     * @return string
      */
     public function getSku()
     {
@@ -246,10 +187,9 @@ class Item extends BaseModel
     /**
      * Sets sku
      *
-     * @param string|null $sku The sku id the seller maintains at their end
+     * @param string $sku sku
      *
      * @return self
-    
      */
     public function setSku($sku)
     {
@@ -262,147 +202,29 @@ class Item extends BaseModel
     }
 
     /**
-     * Gets condition
+     * Gets quantity
      *
-     * @return string|null
-    
+     * @return int
      */
-    public function getCondition()
+    public function getQuantity()
     {
-        return $this->container['condition'];
+        return $this->container['quantity'];
     }
 
     /**
-     * Sets condition
+     * Sets quantity
      *
-     * @param string|null $condition condition
+     * @param int $quantity quantity
      *
      * @return self
-    
      */
-    public function setCondition($condition)
+    public function setQuantity($quantity)
     {
-        if (is_null($condition)) {
-            throw new \InvalidArgumentException('non-nullable condition cannot be null');
+        if (is_null($quantity)) {
+            throw new \InvalidArgumentException('non-nullable quantity cannot be null');
         }
 
-        $this->container['condition'] = $condition;
-        return $this;
-    }
-
-    /**
-     * Gets imageUrl
-     *
-     * @return string|null
-    
-     */
-    public function getImageUrl()
-    {
-        return $this->container['imageUrl'];
-    }
-
-    /**
-     * Sets imageUrl
-     *
-     * @param string|null $imageUrl imageUrl
-     *
-     * @return self
-    
-     */
-    public function setImageUrl($imageUrl)
-    {
-        if (is_null($imageUrl)) {
-            throw new \InvalidArgumentException('non-nullable imageUrl cannot be null');
-        }
-
-        $this->container['imageUrl'] = $imageUrl;
-        return $this;
-    }
-
-    /**
-     * Gets unitPrice
-     *
-     * @return \Walmart\Models\MP\CL\Orders\UnitPrice|null
-    
-     */
-    public function getUnitPrice()
-    {
-        return $this->container['unitPrice'];
-    }
-
-    /**
-     * Sets unitPrice
-     *
-     * @param \Walmart\Models\MP\CL\Orders\UnitPrice|null $unitPrice unitPrice
-     *
-     * @return self
-    
-     */
-    public function setUnitPrice($unitPrice)
-    {
-        if (is_null($unitPrice)) {
-            throw new \InvalidArgumentException('non-nullable unitPrice cannot be null');
-        }
-
-        $this->container['unitPrice'] = $unitPrice;
-        return $this;
-    }
-
-    /**
-     * Gets commission
-     *
-     * @return \Walmart\Models\MP\CL\Orders\Commission|null
-    
-     */
-    public function getCommission()
-    {
-        return $this->container['commission'];
-    }
-
-    /**
-     * Sets commission
-     *
-     * @param \Walmart\Models\MP\CL\Orders\Commission|null $commission commission
-     *
-     * @return self
-    
-     */
-    public function setCommission($commission)
-    {
-        if (is_null($commission)) {
-            throw new \InvalidArgumentException('non-nullable commission cannot be null');
-        }
-
-        $this->container['commission'] = $commission;
-        return $this;
-    }
-
-    /**
-     * Gets unitPriceWithoutTax
-     *
-     * @return \Walmart\Models\MP\CL\Orders\UnitPriceWithoutTax|null
-    
-     */
-    public function getUnitPriceWithoutTax()
-    {
-        return $this->container['unitPriceWithoutTax'];
-    }
-
-    /**
-     * Sets unitPriceWithoutTax
-     *
-     * @param \Walmart\Models\MP\CL\Orders\UnitPriceWithoutTax|null $unitPriceWithoutTax unitPriceWithoutTax
-     *
-     * @return self
-    
-     */
-    public function setUnitPriceWithoutTax($unitPriceWithoutTax)
-    {
-        if (is_null($unitPriceWithoutTax)) {
-            throw new \InvalidArgumentException('non-nullable unitPriceWithoutTax cannot be null');
-        }
-
-        $this->container['unitPriceWithoutTax'] = $unitPriceWithoutTax;
+        $this->container['quantity'] = $quantity;
         return $this;
     }
 }

@@ -27,9 +27,6 @@ use Walmart\Models\BaseModel;
  * PostalAddress Class Doc Comment
  *
  * @category Class
-
- * @description Elements of the customer's postal address
-
  * @package  Walmart
  * @author   Jesse Evers
  * @link     https://highsidelabs.co
@@ -55,10 +52,6 @@ class PostalAddress extends BaseModel
         'name' => 'string',
         'address1' => 'string',
         'address2' => 'string',
-        'address3' => 'string',
-        'address4' => 'string',
-        'address5' => 'string',
-        'address6' => 'string',
         'city' => 'string',
         'state' => 'string',
         'postalCode' => 'string',
@@ -76,10 +69,6 @@ class PostalAddress extends BaseModel
         'name' => null,
         'address1' => null,
         'address2' => null,
-        'address3' => null,
-        'address4' => null,
-        'address5' => null,
-        'address6' => null,
         'city' => null,
         'state' => null,
         'postalCode' => null,
@@ -95,10 +84,6 @@ class PostalAddress extends BaseModel
         'name' => false,
         'address1' => false,
         'address2' => false,
-        'address3' => false,
-        'address4' => false,
-        'address5' => false,
-        'address6' => false,
         'city' => false,
         'state' => false,
         'postalCode' => false,
@@ -115,10 +100,6 @@ class PostalAddress extends BaseModel
         'name' => 'name',
         'address1' => 'address1',
         'address2' => 'address2',
-        'address3' => 'address3',
-        'address4' => 'address4',
-        'address5' => 'address5',
-        'address6' => 'address6',
         'city' => 'city',
         'state' => 'state',
         'postalCode' => 'postalCode',
@@ -134,10 +115,6 @@ class PostalAddress extends BaseModel
         'name' => 'setName',
         'address1' => 'setAddress1',
         'address2' => 'setAddress2',
-        'address3' => 'setAddress3',
-        'address4' => 'setAddress4',
-        'address5' => 'setAddress5',
-        'address6' => 'setAddress6',
         'city' => 'setCity',
         'state' => 'setState',
         'postalCode' => 'setPostalCode',
@@ -153,10 +130,6 @@ class PostalAddress extends BaseModel
         'name' => 'getName',
         'address1' => 'getAddress1',
         'address2' => 'getAddress2',
-        'address3' => 'getAddress3',
-        'address4' => 'getAddress4',
-        'address5' => 'getAddress5',
-        'address6' => 'getAddress6',
         'city' => 'getCity',
         'state' => 'getState',
         'postalCode' => 'getPostalCode',
@@ -174,10 +147,6 @@ class PostalAddress extends BaseModel
         $this->setIfExists('name', $data ?? [], null);
         $this->setIfExists('address1', $data ?? [], null);
         $this->setIfExists('address2', $data ?? [], null);
-        $this->setIfExists('address3', $data ?? [], null);
-        $this->setIfExists('address4', $data ?? [], null);
-        $this->setIfExists('address5', $data ?? [], null);
-        $this->setIfExists('address6', $data ?? [], null);
         $this->setIfExists('city', $data ?? [], null);
         $this->setIfExists('state', $data ?? [], null);
         $this->setIfExists('postalCode', $data ?? [], null);
@@ -193,6 +162,27 @@ class PostalAddress extends BaseModel
     {
         $invalidProperties = [];
 
+        if ($this->container['name'] === null) {
+            $invalidProperties[] = "'name' can't be null";
+        }
+        if ($this->container['address1'] === null) {
+            $invalidProperties[] = "'address1' can't be null";
+        }
+        if ($this->container['address2'] === null) {
+            $invalidProperties[] = "'address2' can't be null";
+        }
+        if ($this->container['city'] === null) {
+            $invalidProperties[] = "'city' can't be null";
+        }
+        if ($this->container['state'] === null) {
+            $invalidProperties[] = "'state' can't be null";
+        }
+        if ($this->container['postalCode'] === null) {
+            $invalidProperties[] = "'postalCode' can't be null";
+        }
+        if ($this->container['country'] === null) {
+            $invalidProperties[] = "'country' can't be null";
+        }
 
         return $invalidProperties;
     }
@@ -200,8 +190,7 @@ class PostalAddress extends BaseModel
     /**
      * Gets name
      *
-     * @return string|null
-    
+     * @return string
      */
     public function getName()
     {
@@ -211,10 +200,9 @@ class PostalAddress extends BaseModel
     /**
      * Sets name
      *
-     * @param string|null $name The name for the shipment
+     * @param string $name name
      *
      * @return self
-    
      */
     public function setName($name)
     {
@@ -229,8 +217,7 @@ class PostalAddress extends BaseModel
     /**
      * Gets address1
      *
-     * @return string|null
-    
+     * @return string
      */
     public function getAddress1()
     {
@@ -240,10 +227,9 @@ class PostalAddress extends BaseModel
     /**
      * Sets address1
      *
-     * @param string|null $address1 The first line of the shipping address
+     * @param string $address1 address1
      *
      * @return self
-    
      */
     public function setAddress1($address1)
     {
@@ -258,8 +244,7 @@ class PostalAddress extends BaseModel
     /**
      * Gets address2
      *
-     * @return string|null
-    
+     * @return string
      */
     public function getAddress2()
     {
@@ -269,10 +254,9 @@ class PostalAddress extends BaseModel
     /**
      * Sets address2
      *
-     * @param string|null $address2 The second line of the shipping address
+     * @param string $address2 address2
      *
      * @return self
-    
      */
     public function setAddress2($address2)
     {
@@ -285,126 +269,9 @@ class PostalAddress extends BaseModel
     }
 
     /**
-     * Gets address3
-     *
-     * @return string|null
-    
-     */
-    public function getAddress3()
-    {
-        return $this->container['address3'];
-    }
-
-    /**
-     * Sets address3
-     *
-     * @param string|null $address3 address3
-     *
-     * @return self
-    
-     */
-    public function setAddress3($address3)
-    {
-        if (is_null($address3)) {
-            throw new \InvalidArgumentException('non-nullable address3 cannot be null');
-        }
-
-        $this->container['address3'] = $address3;
-        return $this;
-    }
-
-    /**
-     * Gets address4
-     *
-     * @return string|null
-    
-     */
-    public function getAddress4()
-    {
-        return $this->container['address4'];
-    }
-
-    /**
-     * Sets address4
-     *
-     * @param string|null $address4 address4
-     *
-     * @return self
-    
-     */
-    public function setAddress4($address4)
-    {
-        if (is_null($address4)) {
-            throw new \InvalidArgumentException('non-nullable address4 cannot be null');
-        }
-
-        $this->container['address4'] = $address4;
-        return $this;
-    }
-
-    /**
-     * Gets address5
-     *
-     * @return string|null
-    
-     */
-    public function getAddress5()
-    {
-        return $this->container['address5'];
-    }
-
-    /**
-     * Sets address5
-     *
-     * @param string|null $address5 address5
-     *
-     * @return self
-    
-     */
-    public function setAddress5($address5)
-    {
-        if (is_null($address5)) {
-            throw new \InvalidArgumentException('non-nullable address5 cannot be null');
-        }
-
-        $this->container['address5'] = $address5;
-        return $this;
-    }
-
-    /**
-     * Gets address6
-     *
-     * @return string|null
-    
-     */
-    public function getAddress6()
-    {
-        return $this->container['address6'];
-    }
-
-    /**
-     * Sets address6
-     *
-     * @param string|null $address6 address6
-     *
-     * @return self
-    
-     */
-    public function setAddress6($address6)
-    {
-        if (is_null($address6)) {
-            throw new \InvalidArgumentException('non-nullable address6 cannot be null');
-        }
-
-        $this->container['address6'] = $address6;
-        return $this;
-    }
-
-    /**
      * Gets city
      *
-     * @return string|null
-    
+     * @return string
      */
     public function getCity()
     {
@@ -414,10 +281,9 @@ class PostalAddress extends BaseModel
     /**
      * Sets city
      *
-     * @param string|null $city The city of the shipping address
+     * @param string $city city
      *
      * @return self
-    
      */
     public function setCity($city)
     {
@@ -432,8 +298,7 @@ class PostalAddress extends BaseModel
     /**
      * Gets state
      *
-     * @return string|null
-    
+     * @return string
      */
     public function getState()
     {
@@ -443,10 +308,9 @@ class PostalAddress extends BaseModel
     /**
      * Sets state
      *
-     * @param string|null $state The state of the shipping address
+     * @param string $state state
      *
      * @return self
-    
      */
     public function setState($state)
     {
@@ -461,8 +325,7 @@ class PostalAddress extends BaseModel
     /**
      * Gets postalCode
      *
-     * @return string|null
-    
+     * @return string
      */
     public function getPostalCode()
     {
@@ -472,10 +335,9 @@ class PostalAddress extends BaseModel
     /**
      * Sets postalCode
      *
-     * @param string|null $postalCode The zip code of the shipping address
+     * @param string $postalCode postalCode
      *
      * @return self
-    
      */
     public function setPostalCode($postalCode)
     {
@@ -490,8 +352,7 @@ class PostalAddress extends BaseModel
     /**
      * Gets country
      *
-     * @return string|null
-    
+     * @return string
      */
     public function getCountry()
     {
@@ -501,10 +362,9 @@ class PostalAddress extends BaseModel
     /**
      * Sets country
      *
-     * @param string|null $country The country of the shipping address
+     * @param string $country country
      *
      * @return self
-    
      */
     public function setCountry($country)
     {

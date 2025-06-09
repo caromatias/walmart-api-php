@@ -1,7 +1,7 @@
 <?php
 
 /**
- * ShippingInfo
+ * OrderSubTotal
  *
  * PHP version 7.4
  *
@@ -24,7 +24,7 @@ namespace Walmart\Models\MP\CL\Orders;
 use Walmart\Models\BaseModel;
 
 /**
- * ShippingInfo Class Doc Comment
+ * OrderSubTotal Class Doc Comment
  *
  * @category Class
  * @package  Walmart
@@ -32,7 +32,7 @@ use Walmart\Models\BaseModel;
  * @link     https://highsidelabs.co
  * @email    jesse@highsidelabs.co
  */
-class ShippingInfo extends BaseModel
+class OrderSubTotal extends BaseModel
 {
     public const DISCRIMINATOR = null;
 
@@ -41,7 +41,7 @@ class ShippingInfo extends BaseModel
       *
       * @var string
       */
-    protected static string $openAPIModelName = 'ShippingInfo';
+    protected static string $openAPIModelName = 'OrderSubTotal';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -49,8 +49,8 @@ class ShippingInfo extends BaseModel
       * @var string[]
       */
     protected static array $openAPITypes = [
-        'phone' => 'string',
-        'postalAddress' => '\Walmart\Models\MP\CL\Orders\PostalAddress'
+        'name' => 'string',
+        'amount' => '\Walmart\Models\MP\CL\Orders\Amount'
     ];
 
     /**
@@ -61,8 +61,8 @@ class ShippingInfo extends BaseModel
       * @psalm-var array<string, string|null>
       */
     protected static array $openAPIFormats = [
-        'phone' => null,
-        'postalAddress' => null
+        'name' => null,
+        'amount' => null
     ];
 
     /**
@@ -71,8 +71,8 @@ class ShippingInfo extends BaseModel
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'phone' => false,
-        'postalAddress' => false
+        'name' => false,
+        'amount' => false
     ];
 
     /**
@@ -82,8 +82,8 @@ class ShippingInfo extends BaseModel
      * @var string[]
      */
     protected static array $attributeMap = [
-        'phone' => 'phone',
-        'postalAddress' => 'postalAddress'
+        'name' => 'name',
+        'amount' => 'amount'
     ];
 
     /**
@@ -92,8 +92,8 @@ class ShippingInfo extends BaseModel
      * @var string[]
      */
     protected static array $setters = [
-        'phone' => 'setPhone',
-        'postalAddress' => 'setPostalAddress'
+        'name' => 'setName',
+        'amount' => 'setAmount'
     ];
 
     /**
@@ -102,8 +102,8 @@ class ShippingInfo extends BaseModel
      * @var string[]
      */
     protected static array $getters = [
-        'phone' => 'getPhone',
-        'postalAddress' => 'getPostalAddress'
+        'name' => 'getName',
+        'amount' => 'getAmount'
     ];
 
     /**
@@ -114,8 +114,8 @@ class ShippingInfo extends BaseModel
      */
     public function __construct(array $data = null)
     {
-        $this->setIfExists('phone', $data ?? [], null);
-        $this->setIfExists('postalAddress', $data ?? [], null);
+        $this->setIfExists('name', $data ?? [], null);
+        $this->setIfExists('amount', $data ?? [], null);
     }
 
     /**
@@ -127,67 +127,67 @@ class ShippingInfo extends BaseModel
     {
         $invalidProperties = [];
 
-        if ($this->container['phone'] === null) {
-            $invalidProperties[] = "'phone' can't be null";
+        if ($this->container['name'] === null) {
+            $invalidProperties[] = "'name' can't be null";
         }
-        if ($this->container['postalAddress'] === null) {
-            $invalidProperties[] = "'postalAddress' can't be null";
+        if ($this->container['amount'] === null) {
+            $invalidProperties[] = "'amount' can't be null";
         }
 
         return $invalidProperties;
     }
 
     /**
-     * Gets phone
+     * Gets name
      *
      * @return string
      */
-    public function getPhone()
+    public function getName()
     {
-        return $this->container['phone'];
+        return $this->container['name'];
     }
 
     /**
-     * Sets phone
+     * Sets name
      *
-     * @param string $phone phone
+     * @param string $name name
      *
      * @return self
      */
-    public function setPhone($phone)
+    public function setName($name)
     {
-        if (is_null($phone)) {
-            throw new \InvalidArgumentException('non-nullable phone cannot be null');
+        if (is_null($name)) {
+            throw new \InvalidArgumentException('non-nullable name cannot be null');
         }
 
-        $this->container['phone'] = $phone;
+        $this->container['name'] = $name;
         return $this;
     }
 
     /**
-     * Gets postalAddress
+     * Gets amount
      *
-     * @return \Walmart\Models\MP\CL\Orders\PostalAddress
+     * @return \Walmart\Models\MP\CL\Orders\Amount
      */
-    public function getPostalAddress()
+    public function getAmount()
     {
-        return $this->container['postalAddress'];
+        return $this->container['amount'];
     }
 
     /**
-     * Sets postalAddress
+     * Sets amount
      *
-     * @param \Walmart\Models\MP\CL\Orders\PostalAddress $postalAddress postalAddress
+     * @param \Walmart\Models\MP\CL\Orders\Amount $amount amount
      *
      * @return self
      */
-    public function setPostalAddress($postalAddress)
+    public function setAmount($amount)
     {
-        if (is_null($postalAddress)) {
-            throw new \InvalidArgumentException('non-nullable postalAddress cannot be null');
+        if (is_null($amount)) {
+            throw new \InvalidArgumentException('non-nullable amount cannot be null');
         }
 
-        $this->container['postalAddress'] = $postalAddress;
+        $this->container['amount'] = $amount;
         return $this;
     }
-}
+} 

@@ -27,9 +27,6 @@ use Walmart\Models\BaseModel;
  * OrderLine Class Doc Comment
  *
  * @category Class
-
- * @description A list of order lines in the order
-
  * @package  Walmart
  * @author   Jesse Evers
  * @link     https://highsidelabs.co
@@ -52,18 +49,10 @@ class OrderLine extends BaseModel
       * @var string[]
       */
     protected static array $openAPITypes = [
-        'primeLineNumber' => 'string',
-        'coLineNumber' => 'string',
+        'lineNumber' => 'string',
         'item' => '\Walmart\Models\MP\CL\Orders\Item',
         'charges' => '\Walmart\Models\MP\CL\Orders\Charge[]',
-        'orderLineQuantity' => '\Walmart\Models\MP\CL\Orders\Quantity',
-        'orderLineStatus' => '\Walmart\Models\MP\CL\Orders\OrderLineStatus[]',
-        'intentToCancel' => 'string',
-        'shippingMethod' => 'string',
-        'soPrimeLineSubLineNo' => 'string',
-        'promiseDeliveryDate' => 'string',
-        'isMSIEnabled' => 'string',
-        'seller' => '\Walmart\Models\MP\CL\Orders\Seller'
+        'status' => '\Walmart\Models\MP\CL\Orders\Status'
     ];
 
     /**
@@ -74,18 +63,10 @@ class OrderLine extends BaseModel
       * @psalm-var array<string, string|null>
       */
     protected static array $openAPIFormats = [
-        'primeLineNumber' => null,
-        'coLineNumber' => null,
+        'lineNumber' => null,
         'item' => null,
         'charges' => null,
-        'orderLineQuantity' => null,
-        'orderLineStatus' => null,
-        'intentToCancel' => null,
-        'shippingMethod' => null,
-        'soPrimeLineSubLineNo' => null,
-        'promiseDeliveryDate' => null,
-        'isMSIEnabled' => null,
-        'seller' => null
+        'status' => null
     ];
 
     /**
@@ -94,18 +75,10 @@ class OrderLine extends BaseModel
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'primeLineNumber' => false,
-        'coLineNumber' => false,
+        'lineNumber' => false,
         'item' => false,
         'charges' => false,
-        'orderLineQuantity' => false,
-        'orderLineStatus' => false,
-        'intentToCancel' => false,
-        'shippingMethod' => false,
-        'soPrimeLineSubLineNo' => false,
-        'promiseDeliveryDate' => false,
-        'isMSIEnabled' => false,
-        'seller' => false
+        'status' => false
     ];
 
     /**
@@ -115,18 +88,10 @@ class OrderLine extends BaseModel
      * @var string[]
      */
     protected static array $attributeMap = [
-        'primeLineNumber' => 'primeLineNumber',
-        'coLineNumber' => 'coLineNumber',
+        'lineNumber' => 'lineNumber',
         'item' => 'item',
         'charges' => 'charges',
-        'orderLineQuantity' => 'orderLineQuantity',
-        'orderLineStatus' => 'orderLineStatus',
-        'intentToCancel' => 'intentToCancel',
-        'shippingMethod' => 'shippingMethod',
-        'soPrimeLineSubLineNo' => 'soPrimeLineSubLineNo',
-        'promiseDeliveryDate' => 'promiseDeliveryDate',
-        'isMSIEnabled' => 'isMSIEnabled',
-        'seller' => 'seller'
+        'status' => 'status'
     ];
 
     /**
@@ -135,18 +100,10 @@ class OrderLine extends BaseModel
      * @var string[]
      */
     protected static array $setters = [
-        'primeLineNumber' => 'setPrimeLineNumber',
-        'coLineNumber' => 'setCoLineNumber',
+        'lineNumber' => 'setLineNumber',
         'item' => 'setItem',
         'charges' => 'setCharges',
-        'orderLineQuantity' => 'setOrderLineQuantity',
-        'orderLineStatus' => 'setOrderLineStatus',
-        'intentToCancel' => 'setIntentToCancel',
-        'shippingMethod' => 'setShippingMethod',
-        'soPrimeLineSubLineNo' => 'setSoPrimeLineSubLineNo',
-        'promiseDeliveryDate' => 'setPromiseDeliveryDate',
-        'isMSIEnabled' => 'setIsMSIEnabled',
-        'seller' => 'setSeller'
+        'status' => 'setStatus'
     ];
 
     /**
@@ -155,18 +112,10 @@ class OrderLine extends BaseModel
      * @var string[]
      */
     protected static array $getters = [
-        'primeLineNumber' => 'getPrimeLineNumber',
-        'coLineNumber' => 'getCoLineNumber',
+        'lineNumber' => 'getLineNumber',
         'item' => 'getItem',
         'charges' => 'getCharges',
-        'orderLineQuantity' => 'getOrderLineQuantity',
-        'orderLineStatus' => 'getOrderLineStatus',
-        'intentToCancel' => 'getIntentToCancel',
-        'shippingMethod' => 'getShippingMethod',
-        'soPrimeLineSubLineNo' => 'getSoPrimeLineSubLineNo',
-        'promiseDeliveryDate' => 'getPromiseDeliveryDate',
-        'isMSIEnabled' => 'getIsMSIEnabled',
-        'seller' => 'getSeller'
+        'status' => 'getStatus'
     ];
 
     /**
@@ -177,18 +126,10 @@ class OrderLine extends BaseModel
      */
     public function __construct(array $data = null)
     {
-        $this->setIfExists('primeLineNumber', $data ?? [], null);
-        $this->setIfExists('coLineNumber', $data ?? [], null);
+        $this->setIfExists('lineNumber', $data ?? [], null);
         $this->setIfExists('item', $data ?? [], null);
         $this->setIfExists('charges', $data ?? [], null);
-        $this->setIfExists('orderLineQuantity', $data ?? [], null);
-        $this->setIfExists('orderLineStatus', $data ?? [], null);
-        $this->setIfExists('intentToCancel', $data ?? [], null);
-        $this->setIfExists('shippingMethod', $data ?? [], null);
-        $this->setIfExists('soPrimeLineSubLineNo', $data ?? [], null);
-        $this->setIfExists('promiseDeliveryDate', $data ?? [], null);
-        $this->setIfExists('isMSIEnabled', $data ?? [], null);
-        $this->setIfExists('seller', $data ?? [], null);
+        $this->setIfExists('status', $data ?? [], null);
     }
 
     /**
@@ -200,73 +141,53 @@ class OrderLine extends BaseModel
     {
         $invalidProperties = [];
 
+        if ($this->container['lineNumber'] === null) {
+            $invalidProperties[] = "'lineNumber' can't be null";
+        }
+        if ($this->container['item'] === null) {
+            $invalidProperties[] = "'item' can't be null";
+        }
+        if ($this->container['charges'] === null) {
+            $invalidProperties[] = "'charges' can't be null";
+        }
+        if ($this->container['status'] === null) {
+            $invalidProperties[] = "'status' can't be null";
+        }
 
         return $invalidProperties;
     }
 
     /**
-     * Gets primeLineNumber
+     * Gets lineNumber
      *
-     * @return string|null
-    
+     * @return string
      */
-    public function getPrimeLineNumber()
+    public function getLineNumber()
     {
-        return $this->container['primeLineNumber'];
+        return $this->container['lineNumber'];
     }
 
     /**
-     * Sets primeLineNumber
+     * Sets lineNumber
      *
-     * @param string|null $primeLineNumber primeLineNumber
+     * @param string $lineNumber lineNumber
      *
      * @return self
-    
      */
-    public function setPrimeLineNumber($primeLineNumber)
+    public function setLineNumber($lineNumber)
     {
-        if (is_null($primeLineNumber)) {
-            throw new \InvalidArgumentException('non-nullable primeLineNumber cannot be null');
+        if (is_null($lineNumber)) {
+            throw new \InvalidArgumentException('non-nullable lineNumber cannot be null');
         }
 
-        $this->container['primeLineNumber'] = $primeLineNumber;
-        return $this;
-    }
-
-    /**
-     * Gets coLineNumber
-     *
-     * @return string|null
-    
-     */
-    public function getCoLineNumber()
-    {
-        return $this->container['coLineNumber'];
-    }
-
-    /**
-     * Sets coLineNumber
-     *
-     * @param string|null $coLineNumber coLineNumber
-     *
-     * @return self
-    
-     */
-    public function setCoLineNumber($coLineNumber)
-    {
-        if (is_null($coLineNumber)) {
-            throw new \InvalidArgumentException('non-nullable coLineNumber cannot be null');
-        }
-
-        $this->container['coLineNumber'] = $coLineNumber;
+        $this->container['lineNumber'] = $lineNumber;
         return $this;
     }
 
     /**
      * Gets item
      *
-     * @return \Walmart\Models\MP\CL\Orders\Item|null
-    
+     * @return \Walmart\Models\MP\CL\Orders\Item
      */
     public function getItem()
     {
@@ -276,10 +197,9 @@ class OrderLine extends BaseModel
     /**
      * Sets item
      *
-     * @param \Walmart\Models\MP\CL\Orders\Item|null $item item
+     * @param \Walmart\Models\MP\CL\Orders\Item $item item
      *
      * @return self
-    
      */
     public function setItem($item)
     {
@@ -294,8 +214,7 @@ class OrderLine extends BaseModel
     /**
      * Gets charges
      *
-     * @return \Walmart\Models\MP\CL\Orders\Charge[]|null
-    
+     * @return \Walmart\Models\MP\CL\Orders\Charge[]
      */
     public function getCharges()
     {
@@ -305,10 +224,9 @@ class OrderLine extends BaseModel
     /**
      * Sets charges
      *
-     * @param \Walmart\Models\MP\CL\Orders\Charge[]|null $charges charges
+     * @param \Walmart\Models\MP\CL\Orders\Charge[] $charges charges
      *
      * @return self
-    
      */
     public function setCharges($charges)
     {
@@ -321,234 +239,29 @@ class OrderLine extends BaseModel
     }
 
     /**
-     * Gets orderLineQuantity
+     * Gets status
      *
-     * @return \Walmart\Models\MP\CL\Orders\Quantity|null
-    
+     * @return \Walmart\Models\MP\CL\Orders\Status
      */
-    public function getOrderLineQuantity()
+    public function getStatus()
     {
-        return $this->container['orderLineQuantity'];
+        return $this->container['status'];
     }
 
     /**
-     * Sets orderLineQuantity
+     * Sets status
      *
-     * @param \Walmart\Models\MP\CL\Orders\Quantity|null $orderLineQuantity orderLineQuantity
+     * @param \Walmart\Models\MP\CL\Orders\Status $status status
      *
      * @return self
-    
      */
-    public function setOrderLineQuantity($orderLineQuantity)
+    public function setStatus($status)
     {
-        if (is_null($orderLineQuantity)) {
-            throw new \InvalidArgumentException('non-nullable orderLineQuantity cannot be null');
+        if (is_null($status)) {
+            throw new \InvalidArgumentException('non-nullable status cannot be null');
         }
 
-        $this->container['orderLineQuantity'] = $orderLineQuantity;
-        return $this;
-    }
-
-    /**
-     * Gets orderLineStatus
-     *
-     * @return \Walmart\Models\MP\CL\Orders\OrderLineStatus[]|null
-    
-     */
-    public function getOrderLineStatus()
-    {
-        return $this->container['orderLineStatus'];
-    }
-
-    /**
-     * Sets orderLineStatus
-     *
-     * @param \Walmart\Models\MP\CL\Orders\OrderLineStatus[]|null $orderLineStatus orderLineStatus
-     *
-     * @return self
-    
-     */
-    public function setOrderLineStatus($orderLineStatus)
-    {
-        if (is_null($orderLineStatus)) {
-            throw new \InvalidArgumentException('non-nullable orderLineStatus cannot be null');
-        }
-
-        $this->container['orderLineStatus'] = $orderLineStatus;
-        return $this;
-    }
-
-    /**
-     * Gets intentToCancel
-     *
-     * @return string|null
-    
-     */
-    public function getIntentToCancel()
-    {
-        return $this->container['intentToCancel'];
-    }
-
-    /**
-     * Sets intentToCancel
-     *
-     * @param string|null $intentToCancel intentToCancel
-     *
-     * @return self
-    
-     */
-    public function setIntentToCancel($intentToCancel)
-    {
-        if (is_null($intentToCancel)) {
-            throw new \InvalidArgumentException('non-nullable intentToCancel cannot be null');
-        }
-
-        $this->container['intentToCancel'] = $intentToCancel;
-        return $this;
-    }
-
-    /**
-     * Gets shippingMethod
-     *
-     * @return string|null
-    
-     */
-    public function getShippingMethod()
-    {
-        return $this->container['shippingMethod'];
-    }
-
-    /**
-     * Sets shippingMethod
-     *
-     * @param string|null $shippingMethod shippingMethod
-     *
-     * @return self
-    
-     */
-    public function setShippingMethod($shippingMethod)
-    {
-        if (is_null($shippingMethod)) {
-            throw new \InvalidArgumentException('non-nullable shippingMethod cannot be null');
-        }
-
-        $this->container['shippingMethod'] = $shippingMethod;
-        return $this;
-    }
-
-    /**
-     * Gets soPrimeLineSubLineNo
-     *
-     * @return string|null
-    
-     */
-    public function getSoPrimeLineSubLineNo()
-    {
-        return $this->container['soPrimeLineSubLineNo'];
-    }
-
-    /**
-     * Sets soPrimeLineSubLineNo
-     *
-     * @param string|null $soPrimeLineSubLineNo soPrimeLineSubLineNo
-     *
-     * @return self
-    
-     */
-    public function setSoPrimeLineSubLineNo($soPrimeLineSubLineNo)
-    {
-        if (is_null($soPrimeLineSubLineNo)) {
-            throw new \InvalidArgumentException('non-nullable soPrimeLineSubLineNo cannot be null');
-        }
-
-        $this->container['soPrimeLineSubLineNo'] = $soPrimeLineSubLineNo;
-        return $this;
-    }
-
-    /**
-     * Gets promiseDeliveryDate
-     *
-     * @return string|null
-    
-     */
-    public function getPromiseDeliveryDate()
-    {
-        return $this->container['promiseDeliveryDate'];
-    }
-
-    /**
-     * Sets promiseDeliveryDate
-     *
-     * @param string|null $promiseDeliveryDate promiseDeliveryDate
-     *
-     * @return self
-    
-     */
-    public function setPromiseDeliveryDate($promiseDeliveryDate)
-    {
-        if (is_null($promiseDeliveryDate)) {
-            throw new \InvalidArgumentException('non-nullable promiseDeliveryDate cannot be null');
-        }
-
-        $this->container['promiseDeliveryDate'] = $promiseDeliveryDate;
-        return $this;
-    }
-
-    /**
-     * Gets isMSIEnabled
-     *
-     * @return string|null
-    
-     */
-    public function getIsMSIEnabled()
-    {
-        return $this->container['isMSIEnabled'];
-    }
-
-    /**
-     * Sets isMSIEnabled
-     *
-     * @param string|null $isMSIEnabled isMSIEnabled
-     *
-     * @return self
-    
-     */
-    public function setIsMSIEnabled($isMSIEnabled)
-    {
-        if (is_null($isMSIEnabled)) {
-            throw new \InvalidArgumentException('non-nullable isMSIEnabled cannot be null');
-        }
-
-        $this->container['isMSIEnabled'] = $isMSIEnabled;
-        return $this;
-    }
-
-    /**
-     * Gets seller
-     *
-     * @return \Walmart\Models\MP\CL\Orders\Seller|null
-    
-     */
-    public function getSeller()
-    {
-        return $this->container['seller'];
-    }
-
-    /**
-     * Sets seller
-     *
-     * @param \Walmart\Models\MP\CL\Orders\Seller|null $seller seller
-     *
-     * @return self
-    
-     */
-    public function setSeller($seller)
-    {
-        if (is_null($seller)) {
-            throw new \InvalidArgumentException('non-nullable seller cannot be null');
-        }
-
-        $this->container['seller'] = $seller;
+        $this->container['status'] = $status;
         return $this;
     }
 }

@@ -27,7 +27,6 @@ use Walmart\Models\BaseModel;
  * WFSOrder Class Doc Comment
  *
  * @category Class
-
  * @package  Walmart
  * @author   Jesse Evers
  * @link     https://highsidelabs.co
@@ -50,19 +49,14 @@ class WFSOrder extends BaseModel
       * @var string[]
       */
     protected static array $openAPITypes = [
+        'purchaseOrderId' => 'string',
         'customerOrderId' => 'string',
         'customerEmailId' => 'string',
-        'orderDate' => 'string',
+        'orderDate' => 'int',
         'shippingInfo' => '\Walmart\Models\MP\CL\Orders\ShippingInfo',
-        'billingInfo' => '\Walmart\Models\MP\CL\Orders\BillingInfo',
-        'totalLines' => 'string',
-        'totalQuantity' => 'string',
-        'orderLines' => '\Walmart\Models\MP\CL\Orders\OrderLine[]',
-        'shipments' => '\Walmart\Models\MP\CL\Orders\Shipment[]',
-        'orderTotal' => '\Walmart\Models\MP\CL\Orders\OrderTotal',
-        'rfc' => 'string',
-        'paymentMethod' => 'string',
-        'cfdi' => 'string'
+        'customerRfc' => 'string',
+        'orderSummary' => '\Walmart\Models\MP\CL\Orders\OrderSummary',
+        'orderLines' => '\Walmart\Models\MP\CL\Orders\OrderLine[]'
     ];
 
     /**
@@ -73,19 +67,14 @@ class WFSOrder extends BaseModel
       * @psalm-var array<string, string|null>
       */
     protected static array $openAPIFormats = [
+        'purchaseOrderId' => null,
         'customerOrderId' => null,
         'customerEmailId' => null,
-        'orderDate' => null,
+        'orderDate' => 'int64',
         'shippingInfo' => null,
-        'billingInfo' => null,
-        'totalLines' => null,
-        'totalQuantity' => null,
-        'orderLines' => null,
-        'shipments' => null,
-        'orderTotal' => null,
-        'rfc' => null,
-        'paymentMethod' => null,
-        'cfdi' => null
+        'customerRfc' => null,
+        'orderSummary' => null,
+        'orderLines' => null
     ];
 
     /**
@@ -94,19 +83,14 @@ class WFSOrder extends BaseModel
       * @var boolean[]
       */
     protected static array $openAPINullables = [
+        'purchaseOrderId' => false,
         'customerOrderId' => false,
         'customerEmailId' => false,
         'orderDate' => false,
         'shippingInfo' => false,
-        'billingInfo' => false,
-        'totalLines' => false,
-        'totalQuantity' => false,
-        'orderLines' => false,
-        'shipments' => false,
-        'orderTotal' => false,
-        'rfc' => false,
-        'paymentMethod' => false,
-        'cfdi' => false
+        'customerRfc' => false,
+        'orderSummary' => false,
+        'orderLines' => false
     ];
 
     /**
@@ -116,19 +100,14 @@ class WFSOrder extends BaseModel
      * @var string[]
      */
     protected static array $attributeMap = [
+        'purchaseOrderId' => 'purchaseOrderId',
         'customerOrderId' => 'customerOrderId',
         'customerEmailId' => 'customerEmailId',
         'orderDate' => 'orderDate',
         'shippingInfo' => 'shippingInfo',
-        'billingInfo' => 'billingInfo',
-        'totalLines' => 'totalLines',
-        'totalQuantity' => 'totalQuantity',
-        'orderLines' => 'orderLines',
-        'shipments' => 'shipments',
-        'orderTotal' => 'orderTotal',
-        'rfc' => 'rfc',
-        'paymentMethod' => 'paymentMethod',
-        'cfdi' => 'cfdi'
+        'customerRfc' => 'customerRfc',
+        'orderSummary' => 'orderSummary',
+        'orderLines' => 'orderLines'
     ];
 
     /**
@@ -137,19 +116,14 @@ class WFSOrder extends BaseModel
      * @var string[]
      */
     protected static array $setters = [
+        'purchaseOrderId' => 'setPurchaseOrderId',
         'customerOrderId' => 'setCustomerOrderId',
         'customerEmailId' => 'setCustomerEmailId',
         'orderDate' => 'setOrderDate',
         'shippingInfo' => 'setShippingInfo',
-        'billingInfo' => 'setBillingInfo',
-        'totalLines' => 'setTotalLines',
-        'totalQuantity' => 'setTotalQuantity',
-        'orderLines' => 'setOrderLines',
-        'shipments' => 'setShipments',
-        'orderTotal' => 'setOrderTotal',
-        'rfc' => 'setRfc',
-        'paymentMethod' => 'setPaymentMethod',
-        'cfdi' => 'setCfdi'
+        'customerRfc' => 'setCustomerRfc',
+        'orderSummary' => 'setOrderSummary',
+        'orderLines' => 'setOrderLines'
     ];
 
     /**
@@ -158,19 +132,14 @@ class WFSOrder extends BaseModel
      * @var string[]
      */
     protected static array $getters = [
+        'purchaseOrderId' => 'getPurchaseOrderId',
         'customerOrderId' => 'getCustomerOrderId',
         'customerEmailId' => 'getCustomerEmailId',
         'orderDate' => 'getOrderDate',
         'shippingInfo' => 'getShippingInfo',
-        'billingInfo' => 'getBillingInfo',
-        'totalLines' => 'getTotalLines',
-        'totalQuantity' => 'getTotalQuantity',
-        'orderLines' => 'getOrderLines',
-        'shipments' => 'getShipments',
-        'orderTotal' => 'getOrderTotal',
-        'rfc' => 'getRfc',
-        'paymentMethod' => 'getPaymentMethod',
-        'cfdi' => 'getCfdi'
+        'customerRfc' => 'getCustomerRfc',
+        'orderSummary' => 'getOrderSummary',
+        'orderLines' => 'getOrderLines'
     ];
 
     /**
@@ -181,19 +150,14 @@ class WFSOrder extends BaseModel
      */
     public function __construct(array $data = null)
     {
+        $this->setIfExists('purchaseOrderId', $data ?? [], null);
         $this->setIfExists('customerOrderId', $data ?? [], null);
         $this->setIfExists('customerEmailId', $data ?? [], null);
         $this->setIfExists('orderDate', $data ?? [], null);
         $this->setIfExists('shippingInfo', $data ?? [], null);
-        $this->setIfExists('billingInfo', $data ?? [], null);
-        $this->setIfExists('totalLines', $data ?? [], null);
-        $this->setIfExists('totalQuantity', $data ?? [], null);
+        $this->setIfExists('customerRfc', $data ?? [], null);
+        $this->setIfExists('orderSummary', $data ?? [], null);
         $this->setIfExists('orderLines', $data ?? [], null);
-        $this->setIfExists('shipments', $data ?? [], null);
-        $this->setIfExists('orderTotal', $data ?? [], null);
-        $this->setIfExists('rfc', $data ?? [], null);
-        $this->setIfExists('paymentMethod', $data ?? [], null);
-        $this->setIfExists('cfdi', $data ?? [], null);
     }
 
     /**
@@ -205,15 +169,65 @@ class WFSOrder extends BaseModel
     {
         $invalidProperties = [];
 
+        if ($this->container['purchaseOrderId'] === null) {
+            $invalidProperties[] = "'purchaseOrderId' can't be null";
+        }
+        if ($this->container['customerOrderId'] === null) {
+            $invalidProperties[] = "'customerOrderId' can't be null";
+        }
+        if ($this->container['customerEmailId'] === null) {
+            $invalidProperties[] = "'customerEmailId' can't be null";
+        }
+        if ($this->container['orderDate'] === null) {
+            $invalidProperties[] = "'orderDate' can't be null";
+        }
+        if ($this->container['shippingInfo'] === null) {
+            $invalidProperties[] = "'shippingInfo' can't be null";
+        }
+        if ($this->container['customerRfc'] === null) {
+            $invalidProperties[] = "'customerRfc' can't be null";
+        }
+        if ($this->container['orderSummary'] === null) {
+            $invalidProperties[] = "'orderSummary' can't be null";
+        }
+        if ($this->container['orderLines'] === null) {
+            $invalidProperties[] = "'orderLines' can't be null";
+        }
 
         return $invalidProperties;
     }
 
     /**
+     * Gets purchaseOrderId
+     *
+     * @return string
+     */
+    public function getPurchaseOrderId()
+    {
+        return $this->container['purchaseOrderId'];
+    }
+
+    /**
+     * Sets purchaseOrderId
+     *
+     * @param string $purchaseOrderId purchaseOrderId
+     *
+     * @return self
+     */
+    public function setPurchaseOrderId($purchaseOrderId)
+    {
+        if (is_null($purchaseOrderId)) {
+            throw new \InvalidArgumentException('non-nullable purchaseOrderId cannot be null');
+        }
+
+        $this->container['purchaseOrderId'] = $purchaseOrderId;
+        return $this;
+    }
+
+    /**
      * Gets customerOrderId
      *
-     * @return string|null
-    
+     * @return string
      */
     public function getCustomerOrderId()
     {
@@ -223,10 +237,9 @@ class WFSOrder extends BaseModel
     /**
      * Sets customerOrderId
      *
-     * @param string|null $customerOrderId customerOrderId
+     * @param string $customerOrderId customerOrderId
      *
      * @return self
-    
      */
     public function setCustomerOrderId($customerOrderId)
     {
@@ -241,8 +254,7 @@ class WFSOrder extends BaseModel
     /**
      * Gets customerEmailId
      *
-     * @return string|null
-    
+     * @return string
      */
     public function getCustomerEmailId()
     {
@@ -252,10 +264,9 @@ class WFSOrder extends BaseModel
     /**
      * Sets customerEmailId
      *
-     * @param string|null $customerEmailId customerEmailId
+     * @param string $customerEmailId customerEmailId
      *
      * @return self
-    
      */
     public function setCustomerEmailId($customerEmailId)
     {
@@ -270,8 +281,7 @@ class WFSOrder extends BaseModel
     /**
      * Gets orderDate
      *
-     * @return string|null
-    
+     * @return int
      */
     public function getOrderDate()
     {
@@ -281,10 +291,9 @@ class WFSOrder extends BaseModel
     /**
      * Sets orderDate
      *
-     * @param string|null $orderDate orderDate
+     * @param int $orderDate orderDate
      *
      * @return self
-    
      */
     public function setOrderDate($orderDate)
     {
@@ -299,8 +308,7 @@ class WFSOrder extends BaseModel
     /**
      * Gets shippingInfo
      *
-     * @return \Walmart\Models\MP\CL\Orders\ShippingInfo|null
-    
+     * @return \Walmart\Models\MP\CL\Orders\ShippingInfo
      */
     public function getShippingInfo()
     {
@@ -310,10 +318,9 @@ class WFSOrder extends BaseModel
     /**
      * Sets shippingInfo
      *
-     * @param \Walmart\Models\MP\CL\Orders\ShippingInfo|null $shippingInfo shippingInfo
+     * @param \Walmart\Models\MP\CL\Orders\ShippingInfo $shippingInfo shippingInfo
      *
      * @return self
-    
      */
     public function setShippingInfo($shippingInfo)
     {
@@ -326,97 +333,63 @@ class WFSOrder extends BaseModel
     }
 
     /**
-     * Gets billingInfo
+     * Gets customerRfc
      *
-     * @return \Walmart\Models\MP\CL\Orders\BillingInfo|null
-    
+     * @return string
      */
-    public function getBillingInfo()
+    public function getCustomerRfc()
     {
-        return $this->container['billingInfo'];
+        return $this->container['customerRfc'];
     }
 
     /**
-     * Sets billingInfo
+     * Sets customerRfc
      *
-     * @param \Walmart\Models\MP\CL\Orders\BillingInfo|null $billingInfo billingInfo
+     * @param string $customerRfc customerRfc
      *
      * @return self
-    
      */
-    public function setBillingInfo($billingInfo)
+    public function setCustomerRfc($customerRfc)
     {
-        if (is_null($billingInfo)) {
-            throw new \InvalidArgumentException('non-nullable billingInfo cannot be null');
+        if (is_null($customerRfc)) {
+            throw new \InvalidArgumentException('non-nullable customerRfc cannot be null');
         }
 
-        $this->container['billingInfo'] = $billingInfo;
+        $this->container['customerRfc'] = $customerRfc;
         return $this;
     }
 
     /**
-     * Gets totalLines
+     * Gets orderSummary
      *
-     * @return string|null
-    
+     * @return \Walmart\Models\MP\CL\Orders\OrderSummary
      */
-    public function getTotalLines()
+    public function getOrderSummary()
     {
-        return $this->container['totalLines'];
+        return $this->container['orderSummary'];
     }
 
     /**
-     * Sets totalLines
+     * Sets orderSummary
      *
-     * @param string|null $totalLines totalLines
+     * @param \Walmart\Models\MP\CL\Orders\OrderSummary $orderSummary orderSummary
      *
      * @return self
-    
      */
-    public function setTotalLines($totalLines)
+    public function setOrderSummary($orderSummary)
     {
-        if (is_null($totalLines)) {
-            throw new \InvalidArgumentException('non-nullable totalLines cannot be null');
+        if (is_null($orderSummary)) {
+            throw new \InvalidArgumentException('non-nullable orderSummary cannot be null');
         }
 
-        $this->container['totalLines'] = $totalLines;
-        return $this;
-    }
-
-    /**
-     * Gets totalQuantity
-     *
-     * @return string|null
-    
-     */
-    public function getTotalQuantity()
-    {
-        return $this->container['totalQuantity'];
-    }
-
-    /**
-     * Sets totalQuantity
-     *
-     * @param string|null $totalQuantity totalQuantity
-     *
-     * @return self
-    
-     */
-    public function setTotalQuantity($totalQuantity)
-    {
-        if (is_null($totalQuantity)) {
-            throw new \InvalidArgumentException('non-nullable totalQuantity cannot be null');
-        }
-
-        $this->container['totalQuantity'] = $totalQuantity;
+        $this->container['orderSummary'] = $orderSummary;
         return $this;
     }
 
     /**
      * Gets orderLines
      *
-     * @return \Walmart\Models\MP\CL\Orders\OrderLine[]|null
-    
+     * @return \Walmart\Models\MP\CL\Orders\OrderLine[]
      */
     public function getOrderLines()
     {
@@ -426,10 +399,9 @@ class WFSOrder extends BaseModel
     /**
      * Sets orderLines
      *
-     * @param \Walmart\Models\MP\CL\Orders\OrderLine[]|null $orderLines orderLines
+     * @param \Walmart\Models\MP\CL\Orders\OrderLine[] $orderLines orderLines
      *
      * @return self
-    
      */
     public function setOrderLines($orderLines)
     {
@@ -438,151 +410,6 @@ class WFSOrder extends BaseModel
         }
 
         $this->container['orderLines'] = $orderLines;
-        return $this;
-    }
-
-    /**
-     * Gets shipments
-     *
-     * @return \Walmart\Models\MP\CL\Orders\Shipment[]|null
-    
-     */
-    public function getShipments()
-    {
-        return $this->container['shipments'];
-    }
-
-    /**
-     * Sets shipments
-     *
-     * @param \Walmart\Models\MP\CL\Orders\Shipment[]|null $shipments shipments
-     *
-     * @return self
-    
-     */
-    public function setShipments($shipments)
-    {
-        if (is_null($shipments)) {
-            throw new \InvalidArgumentException('non-nullable shipments cannot be null');
-        }
-
-        $this->container['shipments'] = $shipments;
-        return $this;
-    }
-
-    /**
-     * Gets orderTotal
-     *
-     * @return \Walmart\Models\MP\CL\Orders\OrderTotal|null
-    
-     */
-    public function getOrderTotal()
-    {
-        return $this->container['orderTotal'];
-    }
-
-    /**
-     * Sets orderTotal
-     *
-     * @param \Walmart\Models\MP\CL\Orders\OrderTotal|null $orderTotal orderTotal
-     *
-     * @return self
-    
-     */
-    public function setOrderTotal($orderTotal)
-    {
-        if (is_null($orderTotal)) {
-            throw new \InvalidArgumentException('non-nullable orderTotal cannot be null');
-        }
-
-        $this->container['orderTotal'] = $orderTotal;
-        return $this;
-    }
-
-    /**
-     * Gets rfc
-     *
-     * @return string|null
-    
-     */
-    public function getRfc()
-    {
-        return $this->container['rfc'];
-    }
-
-    /**
-     * Sets rfc
-     *
-     * @param string|null $rfc rfc
-     *
-     * @return self
-    
-     */
-    public function setRfc($rfc)
-    {
-        if (is_null($rfc)) {
-            throw new \InvalidArgumentException('non-nullable rfc cannot be null');
-        }
-
-        $this->container['rfc'] = $rfc;
-        return $this;
-    }
-
-    /**
-     * Gets paymentMethod
-     *
-     * @return string|null
-    
-     */
-    public function getPaymentMethod()
-    {
-        return $this->container['paymentMethod'];
-    }
-
-    /**
-     * Sets paymentMethod
-     *
-     * @param string|null $paymentMethod paymentMethod
-     *
-     * @return self
-    
-     */
-    public function setPaymentMethod($paymentMethod)
-    {
-        if (is_null($paymentMethod)) {
-            throw new \InvalidArgumentException('non-nullable paymentMethod cannot be null');
-        }
-
-        $this->container['paymentMethod'] = $paymentMethod;
-        return $this;
-    }
-
-    /**
-     * Gets cfdi
-     *
-     * @return string|null
-    
-     */
-    public function getCfdi()
-    {
-        return $this->container['cfdi'];
-    }
-
-    /**
-     * Sets cfdi
-     *
-     * @param string|null $cfdi cfdi
-     *
-     * @return self
-    
-     */
-    public function setCfdi($cfdi)
-    {
-        if (is_null($cfdi)) {
-            throw new \InvalidArgumentException('non-nullable cfdi cannot be null');
-        }
-
-        $this->container['cfdi'] = $cfdi;
         return $this;
     }
 }

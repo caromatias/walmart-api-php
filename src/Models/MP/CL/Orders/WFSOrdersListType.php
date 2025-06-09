@@ -1,7 +1,7 @@
 <?php
 
 /**
- * ShippingInfo
+ * WFSOrdersListType
  *
  * PHP version 7.4
  *
@@ -24,7 +24,7 @@ namespace Walmart\Models\MP\CL\Orders;
 use Walmart\Models\BaseModel;
 
 /**
- * ShippingInfo Class Doc Comment
+ * WFSOrdersListType Class Doc Comment
  *
  * @category Class
  * @package  Walmart
@@ -32,7 +32,7 @@ use Walmart\Models\BaseModel;
  * @link     https://highsidelabs.co
  * @email    jesse@highsidelabs.co
  */
-class ShippingInfo extends BaseModel
+class WFSOrdersListType extends BaseModel
 {
     public const DISCRIMINATOR = null;
 
@@ -41,7 +41,7 @@ class ShippingInfo extends BaseModel
       *
       * @var string
       */
-    protected static string $openAPIModelName = 'ShippingInfo';
+    protected static string $openAPIModelName = 'WFSOrdersListType';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -49,8 +49,7 @@ class ShippingInfo extends BaseModel
       * @var string[]
       */
     protected static array $openAPITypes = [
-        'phone' => 'string',
-        'postalAddress' => '\Walmart\Models\MP\CL\Orders\PostalAddress'
+        'list' => '\Walmart\Models\MP\CL\Orders\OrdersListType'
     ];
 
     /**
@@ -61,8 +60,7 @@ class ShippingInfo extends BaseModel
       * @psalm-var array<string, string|null>
       */
     protected static array $openAPIFormats = [
-        'phone' => null,
-        'postalAddress' => null
+        'list' => null
     ];
 
     /**
@@ -71,8 +69,7 @@ class ShippingInfo extends BaseModel
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'phone' => false,
-        'postalAddress' => false
+        'list' => false
     ];
 
     /**
@@ -82,8 +79,7 @@ class ShippingInfo extends BaseModel
      * @var string[]
      */
     protected static array $attributeMap = [
-        'phone' => 'phone',
-        'postalAddress' => 'postalAddress'
+        'list' => 'list'
     ];
 
     /**
@@ -92,8 +88,7 @@ class ShippingInfo extends BaseModel
      * @var string[]
      */
     protected static array $setters = [
-        'phone' => 'setPhone',
-        'postalAddress' => 'setPostalAddress'
+        'list' => 'setList'
     ];
 
     /**
@@ -102,8 +97,7 @@ class ShippingInfo extends BaseModel
      * @var string[]
      */
     protected static array $getters = [
-        'phone' => 'getPhone',
-        'postalAddress' => 'getPostalAddress'
+        'list' => 'getList'
     ];
 
     /**
@@ -114,8 +108,7 @@ class ShippingInfo extends BaseModel
      */
     public function __construct(array $data = null)
     {
-        $this->setIfExists('phone', $data ?? [], null);
-        $this->setIfExists('postalAddress', $data ?? [], null);
+        $this->setIfExists('list', $data ?? [], null);
     }
 
     /**
@@ -127,67 +120,37 @@ class ShippingInfo extends BaseModel
     {
         $invalidProperties = [];
 
-        if ($this->container['phone'] === null) {
-            $invalidProperties[] = "'phone' can't be null";
-        }
-        if ($this->container['postalAddress'] === null) {
-            $invalidProperties[] = "'postalAddress' can't be null";
+        if ($this->container['list'] === null) {
+            $invalidProperties[] = "'list' can't be null";
         }
 
         return $invalidProperties;
     }
 
     /**
-     * Gets phone
+     * Gets list
      *
-     * @return string
+     * @return \Walmart\Models\MP\CL\Orders\OrdersListType
      */
-    public function getPhone()
+    public function getList()
     {
-        return $this->container['phone'];
+        return $this->container['list'];
     }
 
     /**
-     * Sets phone
+     * Sets list
      *
-     * @param string $phone phone
+     * @param \Walmart\Models\MP\CL\Orders\OrdersListType $list list
      *
      * @return self
      */
-    public function setPhone($phone)
+    public function setList($list)
     {
-        if (is_null($phone)) {
-            throw new \InvalidArgumentException('non-nullable phone cannot be null');
+        if (is_null($list)) {
+            throw new \InvalidArgumentException('non-nullable list cannot be null');
         }
 
-        $this->container['phone'] = $phone;
+        $this->container['list'] = $list;
         return $this;
     }
-
-    /**
-     * Gets postalAddress
-     *
-     * @return \Walmart\Models\MP\CL\Orders\PostalAddress
-     */
-    public function getPostalAddress()
-    {
-        return $this->container['postalAddress'];
-    }
-
-    /**
-     * Sets postalAddress
-     *
-     * @param \Walmart\Models\MP\CL\Orders\PostalAddress $postalAddress postalAddress
-     *
-     * @return self
-     */
-    public function setPostalAddress($postalAddress)
-    {
-        if (is_null($postalAddress)) {
-            throw new \InvalidArgumentException('non-nullable postalAddress cannot be null');
-        }
-
-        $this->container['postalAddress'] = $postalAddress;
-        return $this;
-    }
-}
+} 
