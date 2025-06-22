@@ -51,8 +51,12 @@ class OrderLine extends BaseModel
     protected static array $openAPITypes = [
         'lineNumber' => 'string',
         'item' => '\Walmart\Models\MP\CL\Orders\Item',
-        'charges' => '\Walmart\Models\MP\CL\Orders\Charge[]',
-        'status' => '\Walmart\Models\MP\CL\Orders\Status'
+        'charges' => '\Walmart\Models\MP\CL\Orders\Charges',
+        'orderLineQuantity' => '\Walmart\Models\MP\CL\Orders\OrderLineQuantity',
+        'statusDate' => 'int',
+        'orderLineStatuses' => '\Walmart\Models\MP\CL\Orders\OrderLineStatuses',
+        'refund' => '\Walmart\Models\MP\CL\Orders\Refund',
+        'fulfillment' => '\Walmart\Models\MP\CL\Orders\Fulfillment'
     ];
 
     /**
@@ -66,7 +70,11 @@ class OrderLine extends BaseModel
         'lineNumber' => null,
         'item' => null,
         'charges' => null,
-        'status' => null
+        'orderLineQuantity' => null,
+        'statusDate' => 'int64',
+        'orderLineStatuses' => null,
+        'refund' => null,
+        'fulfillment' => null
     ];
 
     /**
@@ -78,7 +86,11 @@ class OrderLine extends BaseModel
         'lineNumber' => false,
         'item' => false,
         'charges' => false,
-        'status' => false
+        'orderLineQuantity' => false,
+        'statusDate' => false,
+        'orderLineStatuses' => false,
+        'refund' => true,
+        'fulfillment' => false
     ];
 
     /**
@@ -91,7 +103,11 @@ class OrderLine extends BaseModel
         'lineNumber' => 'lineNumber',
         'item' => 'item',
         'charges' => 'charges',
-        'status' => 'status'
+        'orderLineQuantity' => 'orderLineQuantity',
+        'statusDate' => 'statusDate',
+        'orderLineStatuses' => 'orderLineStatuses',
+        'refund' => 'refund',
+        'fulfillment' => 'fulfillment'
     ];
 
     /**
@@ -103,7 +119,11 @@ class OrderLine extends BaseModel
         'lineNumber' => 'setLineNumber',
         'item' => 'setItem',
         'charges' => 'setCharges',
-        'status' => 'setStatus'
+        'orderLineQuantity' => 'setOrderLineQuantity',
+        'statusDate' => 'setStatusDate',
+        'orderLineStatuses' => 'setOrderLineStatuses',
+        'refund' => 'setRefund',
+        'fulfillment' => 'setFulfillment'
     ];
 
     /**
@@ -115,7 +135,11 @@ class OrderLine extends BaseModel
         'lineNumber' => 'getLineNumber',
         'item' => 'getItem',
         'charges' => 'getCharges',
-        'status' => 'getStatus'
+        'orderLineQuantity' => 'getOrderLineQuantity',
+        'statusDate' => 'getStatusDate',
+        'orderLineStatuses' => 'getOrderLineStatuses',
+        'refund' => 'getRefund',
+        'fulfillment' => 'getFulfillment'
     ];
 
     /**
@@ -129,7 +153,11 @@ class OrderLine extends BaseModel
         $this->setIfExists('lineNumber', $data ?? [], null);
         $this->setIfExists('item', $data ?? [], null);
         $this->setIfExists('charges', $data ?? [], null);
-        $this->setIfExists('status', $data ?? [], null);
+        $this->setIfExists('orderLineQuantity', $data ?? [], null);
+        $this->setIfExists('statusDate', $data ?? [], null);
+        $this->setIfExists('orderLineStatuses', $data ?? [], null);
+        $this->setIfExists('refund', $data ?? [], null);
+        $this->setIfExists('fulfillment', $data ?? [], null);
     }
 
     /**
@@ -140,20 +168,6 @@ class OrderLine extends BaseModel
     public function listInvalidProperties()
     {
         $invalidProperties = [];
-
-        if ($this->container['lineNumber'] === null) {
-            $invalidProperties[] = "'lineNumber' can't be null";
-        }
-        if ($this->container['item'] === null) {
-            $invalidProperties[] = "'item' can't be null";
-        }
-        if ($this->container['charges'] === null) {
-            $invalidProperties[] = "'charges' can't be null";
-        }
-        if ($this->container['status'] === null) {
-            $invalidProperties[] = "'status' can't be null";
-        }
-
         return $invalidProperties;
     }
 
@@ -179,7 +193,6 @@ class OrderLine extends BaseModel
         if (is_null($lineNumber)) {
             throw new \InvalidArgumentException('non-nullable lineNumber cannot be null');
         }
-
         $this->container['lineNumber'] = $lineNumber;
         return $this;
     }
@@ -206,7 +219,6 @@ class OrderLine extends BaseModel
         if (is_null($item)) {
             throw new \InvalidArgumentException('non-nullable item cannot be null');
         }
-
         $this->container['item'] = $item;
         return $this;
     }
@@ -214,7 +226,7 @@ class OrderLine extends BaseModel
     /**
      * Gets charges
      *
-     * @return \Walmart\Models\MP\CL\Orders\Charge[]
+     * @return \Walmart\Models\MP\CL\Orders\Charges
      */
     public function getCharges()
     {
@@ -224,7 +236,7 @@ class OrderLine extends BaseModel
     /**
      * Sets charges
      *
-     * @param \Walmart\Models\MP\CL\Orders\Charge[] $charges charges
+     * @param \Walmart\Models\MP\CL\Orders\Charges $charges charges
      *
      * @return self
      */
@@ -233,35 +245,139 @@ class OrderLine extends BaseModel
         if (is_null($charges)) {
             throw new \InvalidArgumentException('non-nullable charges cannot be null');
         }
-
         $this->container['charges'] = $charges;
         return $this;
     }
 
     /**
-     * Gets status
+     * Gets orderLineQuantity
      *
-     * @return \Walmart\Models\MP\CL\Orders\Status
+     * @return \Walmart\Models\MP\CL\Orders\OrderLineQuantity
      */
-    public function getStatus()
+    public function getOrderLineQuantity()
     {
-        return $this->container['status'];
+        return $this->container['orderLineQuantity'];
     }
 
     /**
-     * Sets status
+     * Sets orderLineQuantity
      *
-     * @param \Walmart\Models\MP\CL\Orders\Status $status status
+     * @param \Walmart\Models\MP\CL\Orders\OrderLineQuantity $orderLineQuantity orderLineQuantity
      *
      * @return self
      */
-    public function setStatus($status)
+    public function setOrderLineQuantity($orderLineQuantity)
     {
-        if (is_null($status)) {
-            throw new \InvalidArgumentException('non-nullable status cannot be null');
+        if (is_null($orderLineQuantity)) {
+            throw new \InvalidArgumentException('non-nullable orderLineQuantity cannot be null');
         }
+        $this->container['orderLineQuantity'] = $orderLineQuantity;
+        return $this;
+    }
 
-        $this->container['status'] = $status;
+    /**
+     * Gets statusDate
+     *
+     * @return int
+     */
+    public function getStatusDate()
+    {
+        return $this->container['statusDate'];
+    }
+
+    /**
+     * Sets statusDate
+     *
+     * @param int $statusDate statusDate
+     *
+     * @return self
+     */
+    public function setStatusDate($statusDate)
+    {
+        if (is_null($statusDate)) {
+            throw new \InvalidArgumentException('non-nullable statusDate cannot be null');
+        }
+        $this->container['statusDate'] = $statusDate;
+        return $this;
+    }
+
+    /**
+     * Gets orderLineStatuses
+     *
+     * @return \Walmart\Models\MP\CL\Orders\OrderLineStatuses
+     */
+    public function getOrderLineStatuses()
+    {
+        return $this->container['orderLineStatuses'];
+    }
+
+    /**
+     * Sets orderLineStatuses
+     *
+     * @param \Walmart\Models\MP\CL\Orders\OrderLineStatuses $orderLineStatuses orderLineStatuses
+     *
+     * @return self
+     */
+    public function setOrderLineStatuses($orderLineStatuses)
+    {
+        if (is_null($orderLineStatuses)) {
+            throw new \InvalidArgumentException('non-nullable orderLineStatuses cannot be null');
+        }
+        $this->container['orderLineStatuses'] = $orderLineStatuses;
+        return $this;
+    }
+
+    /**
+     * Gets refund
+     *
+     * @return \Walmart\Models\MP\CL\Orders\Refund
+     */
+    public function getRefund()
+    {
+        return $this->container['refund'];
+    }
+
+    /**
+     * Sets refund
+     *
+     * @param \Walmart\Models\MP\CL\Orders\Refund $refund refund
+     *
+     * @return self
+     */
+    public function setRefund($refund)
+    {
+        if (is_null($refund)) {
+            // Permitimos null para refund
+            $this->container['refund'] = null;
+            return $this;
+        }
+        $this->container['refund'] = $refund;
+        return $this;
+    }
+
+    /**
+     * Gets fulfillment
+     *
+     * @return \Walmart\Models\MP\CL\Orders\Fulfillment
+     */
+    public function getFulfillment()
+    {
+        return $this->container['fulfillment'];
+    }
+
+    /**
+     * Sets fulfillment
+     *
+     * @param \Walmart\Models\MP\CL\Orders\Fulfillment $fulfillment fulfillment
+     *
+     * @return self
+     */
+    public function setFulfillment($fulfillment)
+    {
+        if (is_null($fulfillment)) {
+            throw new \InvalidArgumentException('non-nullable fulfillment cannot be null');
+        }
+        $this->container['fulfillment'] = $fulfillment;
         return $this;
     }
 }

@@ -52,11 +52,11 @@ class WFSOrder extends BaseModel
         'purchaseOrderId' => 'string',
         'customerOrderId' => 'string',
         'customerEmailId' => 'string',
+        'customerRfc' => 'string',
         'orderDate' => 'int',
         'shippingInfo' => '\Walmart\Models\MP\CL\Orders\ShippingInfo',
-        'customerRfc' => 'string',
         'orderSummary' => '\Walmart\Models\MP\CL\Orders\OrderSummary',
-        'orderLines' => '\Walmart\Models\MP\CL\Orders\OrderLine[]'
+        'orderLines' => '\Walmart\Models\MP\CL\Orders\OrderLines'
     ];
 
     /**
@@ -70,9 +70,9 @@ class WFSOrder extends BaseModel
         'purchaseOrderId' => null,
         'customerOrderId' => null,
         'customerEmailId' => null,
+        'customerRfc' => null,
         'orderDate' => 'int64',
         'shippingInfo' => null,
-        'customerRfc' => null,
         'orderSummary' => null,
         'orderLines' => null
     ];
@@ -86,9 +86,9 @@ class WFSOrder extends BaseModel
         'purchaseOrderId' => false,
         'customerOrderId' => false,
         'customerEmailId' => false,
+        'customerRfc' => false,
         'orderDate' => false,
         'shippingInfo' => false,
-        'customerRfc' => false,
         'orderSummary' => false,
         'orderLines' => false
     ];
@@ -103,9 +103,9 @@ class WFSOrder extends BaseModel
         'purchaseOrderId' => 'purchaseOrderId',
         'customerOrderId' => 'customerOrderId',
         'customerEmailId' => 'customerEmailId',
+        'customerRfc' => 'customerRfc',
         'orderDate' => 'orderDate',
         'shippingInfo' => 'shippingInfo',
-        'customerRfc' => 'customerRfc',
         'orderSummary' => 'orderSummary',
         'orderLines' => 'orderLines'
     ];
@@ -119,9 +119,9 @@ class WFSOrder extends BaseModel
         'purchaseOrderId' => 'setPurchaseOrderId',
         'customerOrderId' => 'setCustomerOrderId',
         'customerEmailId' => 'setCustomerEmailId',
+        'customerRfc' => 'setCustomerRfc',
         'orderDate' => 'setOrderDate',
         'shippingInfo' => 'setShippingInfo',
-        'customerRfc' => 'setCustomerRfc',
         'orderSummary' => 'setOrderSummary',
         'orderLines' => 'setOrderLines'
     ];
@@ -135,9 +135,9 @@ class WFSOrder extends BaseModel
         'purchaseOrderId' => 'getPurchaseOrderId',
         'customerOrderId' => 'getCustomerOrderId',
         'customerEmailId' => 'getCustomerEmailId',
+        'customerRfc' => 'getCustomerRfc',
         'orderDate' => 'getOrderDate',
         'shippingInfo' => 'getShippingInfo',
-        'customerRfc' => 'getCustomerRfc',
         'orderSummary' => 'getOrderSummary',
         'orderLines' => 'getOrderLines'
     ];
@@ -153,9 +153,9 @@ class WFSOrder extends BaseModel
         $this->setIfExists('purchaseOrderId', $data ?? [], null);
         $this->setIfExists('customerOrderId', $data ?? [], null);
         $this->setIfExists('customerEmailId', $data ?? [], null);
+        $this->setIfExists('customerRfc', $data ?? [], null);
         $this->setIfExists('orderDate', $data ?? [], null);
         $this->setIfExists('shippingInfo', $data ?? [], null);
-        $this->setIfExists('customerRfc', $data ?? [], null);
         $this->setIfExists('orderSummary', $data ?? [], null);
         $this->setIfExists('orderLines', $data ?? [], null);
     }
@@ -168,32 +168,6 @@ class WFSOrder extends BaseModel
     public function listInvalidProperties()
     {
         $invalidProperties = [];
-
-        if ($this->container['purchaseOrderId'] === null) {
-            $invalidProperties[] = "'purchaseOrderId' can't be null";
-        }
-        if ($this->container['customerOrderId'] === null) {
-            $invalidProperties[] = "'customerOrderId' can't be null";
-        }
-        if ($this->container['customerEmailId'] === null) {
-            $invalidProperties[] = "'customerEmailId' can't be null";
-        }
-        if ($this->container['orderDate'] === null) {
-            $invalidProperties[] = "'orderDate' can't be null";
-        }
-        if ($this->container['shippingInfo'] === null) {
-            $invalidProperties[] = "'shippingInfo' can't be null";
-        }
-        if ($this->container['customerRfc'] === null) {
-            $invalidProperties[] = "'customerRfc' can't be null";
-        }
-        if ($this->container['orderSummary'] === null) {
-            $invalidProperties[] = "'orderSummary' can't be null";
-        }
-        if ($this->container['orderLines'] === null) {
-            $invalidProperties[] = "'orderLines' can't be null";
-        }
-
         return $invalidProperties;
     }
 
@@ -219,7 +193,6 @@ class WFSOrder extends BaseModel
         if (is_null($purchaseOrderId)) {
             throw new \InvalidArgumentException('non-nullable purchaseOrderId cannot be null');
         }
-
         $this->container['purchaseOrderId'] = $purchaseOrderId;
         return $this;
     }
@@ -246,7 +219,6 @@ class WFSOrder extends BaseModel
         if (is_null($customerOrderId)) {
             throw new \InvalidArgumentException('non-nullable customerOrderId cannot be null');
         }
-
         $this->container['customerOrderId'] = $customerOrderId;
         return $this;
     }
@@ -273,8 +245,33 @@ class WFSOrder extends BaseModel
         if (is_null($customerEmailId)) {
             throw new \InvalidArgumentException('non-nullable customerEmailId cannot be null');
         }
-
         $this->container['customerEmailId'] = $customerEmailId;
+        return $this;
+    }
+
+    /**
+     * Gets customerRfc
+     *
+     * @return string
+     */
+    public function getCustomerRfc()
+    {
+        return $this->container['customerRfc'];
+    }
+
+    /**
+     * Sets customerRfc
+     *
+     * @param string $customerRfc customerRfc
+     *
+     * @return self
+     */
+    public function setCustomerRfc($customerRfc)
+    {
+        if (is_null($customerRfc)) {
+            throw new \InvalidArgumentException('non-nullable customerRfc cannot be null');
+        }
+        $this->container['customerRfc'] = $customerRfc;
         return $this;
     }
 
@@ -300,7 +297,6 @@ class WFSOrder extends BaseModel
         if (is_null($orderDate)) {
             throw new \InvalidArgumentException('non-nullable orderDate cannot be null');
         }
-
         $this->container['orderDate'] = $orderDate;
         return $this;
     }
@@ -327,35 +323,7 @@ class WFSOrder extends BaseModel
         if (is_null($shippingInfo)) {
             throw new \InvalidArgumentException('non-nullable shippingInfo cannot be null');
         }
-
         $this->container['shippingInfo'] = $shippingInfo;
-        return $this;
-    }
-
-    /**
-     * Gets customerRfc
-     *
-     * @return string
-     */
-    public function getCustomerRfc()
-    {
-        return $this->container['customerRfc'];
-    }
-
-    /**
-     * Sets customerRfc
-     *
-     * @param string $customerRfc customerRfc
-     *
-     * @return self
-     */
-    public function setCustomerRfc($customerRfc)
-    {
-        if (is_null($customerRfc)) {
-            throw new \InvalidArgumentException('non-nullable customerRfc cannot be null');
-        }
-
-        $this->container['customerRfc'] = $customerRfc;
         return $this;
     }
 
@@ -381,7 +349,6 @@ class WFSOrder extends BaseModel
         if (is_null($orderSummary)) {
             throw new \InvalidArgumentException('non-nullable orderSummary cannot be null');
         }
-
         $this->container['orderSummary'] = $orderSummary;
         return $this;
     }
@@ -389,7 +356,7 @@ class WFSOrder extends BaseModel
     /**
      * Gets orderLines
      *
-     * @return \Walmart\Models\MP\CL\Orders\OrderLine[]
+     * @return \Walmart\Models\MP\CL\Orders\OrderLines
      */
     public function getOrderLines()
     {
@@ -399,7 +366,7 @@ class WFSOrder extends BaseModel
     /**
      * Sets orderLines
      *
-     * @param \Walmart\Models\MP\CL\Orders\OrderLine[] $orderLines orderLines
+     * @param \Walmart\Models\MP\CL\Orders\OrderLines $orderLines orderLines
      *
      * @return self
      */
@@ -408,7 +375,6 @@ class WFSOrder extends BaseModel
         if (is_null($orderLines)) {
             throw new \InvalidArgumentException('non-nullable orderLines cannot be null');
         }
-
         $this->container['orderLines'] = $orderLines;
         return $this;
     }

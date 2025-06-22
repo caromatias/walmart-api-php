@@ -50,7 +50,7 @@ class Amount extends BaseModel
       */
     protected static array $openAPITypes = [
         'currency' => 'string',
-        'value' => 'float'
+        'amount' => 'float'
     ];
 
     /**
@@ -62,7 +62,7 @@ class Amount extends BaseModel
       */
     protected static array $openAPIFormats = [
         'currency' => null,
-        'value' => 'float'
+        'amount' => 'float'
     ];
 
     /**
@@ -72,7 +72,7 @@ class Amount extends BaseModel
       */
     protected static array $openAPINullables = [
         'currency' => false,
-        'value' => false
+        'amount' => false
     ];
 
     /**
@@ -83,7 +83,7 @@ class Amount extends BaseModel
      */
     protected static array $attributeMap = [
         'currency' => 'currency',
-        'value' => 'value'
+        'amount' => 'amount'
     ];
 
     /**
@@ -93,7 +93,7 @@ class Amount extends BaseModel
      */
     protected static array $setters = [
         'currency' => 'setCurrency',
-        'value' => 'setValue'
+        'amount' => 'setAmount'
     ];
 
     /**
@@ -103,7 +103,7 @@ class Amount extends BaseModel
      */
     protected static array $getters = [
         'currency' => 'getCurrency',
-        'value' => 'getValue'
+        'amount' => 'getAmount'
     ];
 
     /**
@@ -115,7 +115,7 @@ class Amount extends BaseModel
     public function __construct(array $data = null)
     {
         $this->setIfExists('currency', $data ?? [], null);
-        $this->setIfExists('value', $data ?? [], null);
+        $this->setIfExists('amount', $data ?? [], null);
     }
 
     /**
@@ -126,14 +126,6 @@ class Amount extends BaseModel
     public function listInvalidProperties()
     {
         $invalidProperties = [];
-
-        if ($this->container['currency'] === null) {
-            $invalidProperties[] = "'currency' can't be null";
-        }
-        if ($this->container['value'] === null) {
-            $invalidProperties[] = "'value' can't be null";
-        }
-
         return $invalidProperties;
     }
 
@@ -159,35 +151,33 @@ class Amount extends BaseModel
         if (is_null($currency)) {
             throw new \InvalidArgumentException('non-nullable currency cannot be null');
         }
-
         $this->container['currency'] = $currency;
         return $this;
     }
 
     /**
-     * Gets value
+     * Gets amount
      *
      * @return float
      */
-    public function getValue()
+    public function getAmount()
     {
-        return $this->container['value'];
+        return $this->container['amount'];
     }
 
     /**
-     * Sets value
+     * Sets amount
      *
-     * @param float $value value
+     * @param float $amount amount
      *
      * @return self
      */
-    public function setValue($value)
+    public function setAmount($amount)
     {
-        if (is_null($value)) {
-            throw new \InvalidArgumentException('non-nullable value cannot be null');
+        if (is_null($amount)) {
+            throw new \InvalidArgumentException('non-nullable amount cannot be null');
         }
-
-        $this->container['value'] = $value;
+        $this->container['amount'] = $amount;
         return $this;
     }
 } 

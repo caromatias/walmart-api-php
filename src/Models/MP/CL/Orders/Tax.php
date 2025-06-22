@@ -51,7 +51,7 @@ class Tax extends BaseModel
       */
     protected static array $openAPITypes = [
         'taxName' => 'string',
-        'taxAmount' => '\Walmart\Models\MP\CL\Orders\TaxAmount'
+        'taxAmount' => '\Walmart\Models\MP\CL\Orders\Amount'
     ];
 
     /**
@@ -72,7 +72,7 @@ class Tax extends BaseModel
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'taxName' => false,
+        'taxName' => true,
         'taxAmount' => false
     ];
 
@@ -154,9 +154,9 @@ class Tax extends BaseModel
     public function setTaxName($taxName)
     {
         if (is_null($taxName)) {
-            throw new \InvalidArgumentException('non-nullable taxName cannot be null');
+            $this->container['taxName'] = null;
+            return $this;
         }
-
         $this->container['taxName'] = $taxName;
         return $this;
     }
@@ -164,7 +164,7 @@ class Tax extends BaseModel
     /**
      * Gets taxAmount
      *
-     * @return \Walmart\Models\MP\CL\Orders\TaxAmount|null
+     * @return \Walmart\Models\MP\CL\Orders\Amount|null
     
      */
     public function getTaxAmount()
@@ -175,7 +175,7 @@ class Tax extends BaseModel
     /**
      * Sets taxAmount
      *
-     * @param \Walmart\Models\MP\CL\Orders\TaxAmount|null $taxAmount taxAmount
+     * @param \Walmart\Models\MP\CL\Orders\Amount|null $taxAmount taxAmount
      *
      * @return self
     
@@ -185,7 +185,6 @@ class Tax extends BaseModel
         if (is_null($taxAmount)) {
             throw new \InvalidArgumentException('non-nullable taxAmount cannot be null');
         }
-
         $this->container['taxAmount'] = $taxAmount;
         return $this;
     }

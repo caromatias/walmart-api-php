@@ -52,8 +52,10 @@ class Charge extends BaseModel
     protected static array $openAPITypes = [
         'chargeType' => 'string',
         'chargeName' => 'string',
-        'chargeAmount' => '\Walmart\Models\MP\CL\Orders\ChargeAmount',
-        'tax' => '\Walmart\Models\MP\CL\Orders\Tax[]'
+        'chargeAmount' => '\Walmart\Models\MP\CL\Orders\Amount',
+        'tax' => '\Walmart\Models\MP\CL\Orders\Tax',
+        'isDiscount' => 'bool',
+        'discountType' => 'string'
     ];
 
     /**
@@ -67,7 +69,9 @@ class Charge extends BaseModel
         'chargeType' => null,
         'chargeName' => null,
         'chargeAmount' => null,
-        'tax' => null
+        'tax' => null,
+        'isDiscount' => null,
+        'discountType' => null
     ];
 
     /**
@@ -79,7 +83,9 @@ class Charge extends BaseModel
         'chargeType' => false,
         'chargeName' => false,
         'chargeAmount' => false,
-        'tax' => false
+        'tax' => false,
+        'isDiscount' => true,
+        'discountType' => true
     ];
 
     /**
@@ -92,7 +98,9 @@ class Charge extends BaseModel
         'chargeType' => 'chargeType',
         'chargeName' => 'chargeName',
         'chargeAmount' => 'chargeAmount',
-        'tax' => 'tax'
+        'tax' => 'tax',
+        'isDiscount' => 'isDiscount',
+        'discountType' => 'discountType'
     ];
 
     /**
@@ -104,7 +112,9 @@ class Charge extends BaseModel
         'chargeType' => 'setChargeType',
         'chargeName' => 'setChargeName',
         'chargeAmount' => 'setChargeAmount',
-        'tax' => 'setTax'
+        'tax' => 'setTax',
+        'isDiscount' => 'setIsDiscount',
+        'discountType' => 'setDiscountType'
     ];
 
     /**
@@ -116,7 +126,9 @@ class Charge extends BaseModel
         'chargeType' => 'getChargeType',
         'chargeName' => 'getChargeName',
         'chargeAmount' => 'getChargeAmount',
-        'tax' => 'getTax'
+        'tax' => 'getTax',
+        'isDiscount' => 'getIsDiscount',
+        'discountType' => 'getDiscountType'
     ];
 
     /**
@@ -131,6 +143,8 @@ class Charge extends BaseModel
         $this->setIfExists('chargeName', $data ?? [], null);
         $this->setIfExists('chargeAmount', $data ?? [], null);
         $this->setIfExists('tax', $data ?? [], null);
+        $this->setIfExists('isDiscount', $data ?? [], null);
+        $this->setIfExists('discountType', $data ?? [], null);
     }
 
     /**
@@ -207,7 +221,7 @@ class Charge extends BaseModel
     /**
      * Gets chargeAmount
      *
-     * @return \Walmart\Models\MP\CL\Orders\ChargeAmount|null
+     * @return \Walmart\Models\MP\CL\Orders\Amount|null
     
      */
     public function getChargeAmount()
@@ -218,7 +232,7 @@ class Charge extends BaseModel
     /**
      * Sets chargeAmount
      *
-     * @param \Walmart\Models\MP\CL\Orders\ChargeAmount|null $chargeAmount chargeAmount
+     * @param \Walmart\Models\MP\CL\Orders\Amount|null $chargeAmount chargeAmount
      *
      * @return self
     
@@ -236,7 +250,7 @@ class Charge extends BaseModel
     /**
      * Gets tax
      *
-     * @return \Walmart\Models\MP\CL\Orders\Tax[]|null
+     * @return \Walmart\Models\MP\CL\Orders\Tax|null
     
      */
     public function getTax()
@@ -247,7 +261,7 @@ class Charge extends BaseModel
     /**
      * Sets tax
      *
-     * @param \Walmart\Models\MP\CL\Orders\Tax[]|null $tax tax
+     * @param \Walmart\Models\MP\CL\Orders\Tax|null $tax tax
      *
      * @return self
     
@@ -259,6 +273,66 @@ class Charge extends BaseModel
         }
 
         $this->container['tax'] = $tax;
+        return $this;
+    }
+
+    /**
+     * Gets isDiscount
+     *
+     * @return bool|null
+    
+     */
+    public function getIsDiscount()
+    {
+        return $this->container['isDiscount'];
+    }
+
+    /**
+     * Sets isDiscount
+     *
+     * @param bool|null $isDiscount isDiscount
+     *
+     * @return self
+    
+     */
+    public function setIsDiscount($isDiscount)
+    {
+        if (is_null($isDiscount)) {
+            $this->container['isDiscount'] = null;
+            return $this;
+        }
+
+        $this->container['isDiscount'] = $isDiscount;
+        return $this;
+    }
+
+    /**
+     * Gets discountType
+     *
+     * @return string|null
+    
+     */
+    public function getDiscountType()
+    {
+        return $this->container['discountType'];
+    }
+
+    /**
+     * Sets discountType
+     *
+     * @param string|null $discountType discountType
+     *
+     * @return self
+    
+     */
+    public function setDiscountType($discountType)
+    {
+        if (is_null($discountType)) {
+            $this->container['discountType'] = null;
+            return $this;
+        }
+
+        $this->container['discountType'] = $discountType;
         return $this;
     }
 }

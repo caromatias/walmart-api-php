@@ -51,8 +51,7 @@ class OrderLineStatus extends BaseModel
       */
     protected static array $openAPITypes = [
         'status' => 'string',
-        'statusCode' => 'string',
-        'statusQuantity' => '\Walmart\Models\MP\CL\Orders\StatusQuantity',
+        'statusQuantity' => '\Walmart\Models\MP\CL\Orders\OrderLineQuantity',
         'cancellationReason' => 'string',
         'statusDate' => 'string'
     ];
@@ -66,7 +65,6 @@ class OrderLineStatus extends BaseModel
       */
     protected static array $openAPIFormats = [
         'status' => null,
-        'statusCode' => null,
         'statusQuantity' => null,
         'cancellationReason' => null,
         'statusDate' => null
@@ -79,7 +77,6 @@ class OrderLineStatus extends BaseModel
       */
     protected static array $openAPINullables = [
         'status' => false,
-        'statusCode' => false,
         'statusQuantity' => false,
         'cancellationReason' => false,
         'statusDate' => false
@@ -93,7 +90,6 @@ class OrderLineStatus extends BaseModel
      */
     protected static array $attributeMap = [
         'status' => 'status',
-        'statusCode' => 'statusCode',
         'statusQuantity' => 'statusQuantity',
         'cancellationReason' => 'cancellationReason',
         'statusDate' => 'statusDate'
@@ -106,7 +102,6 @@ class OrderLineStatus extends BaseModel
      */
     protected static array $setters = [
         'status' => 'setStatus',
-        'statusCode' => 'setStatusCode',
         'statusQuantity' => 'setStatusQuantity',
         'cancellationReason' => 'setCancellationReason',
         'statusDate' => 'setStatusDate'
@@ -119,7 +114,6 @@ class OrderLineStatus extends BaseModel
      */
     protected static array $getters = [
         'status' => 'getStatus',
-        'statusCode' => 'getStatusCode',
         'statusQuantity' => 'getStatusQuantity',
         'cancellationReason' => 'getCancellationReason',
         'statusDate' => 'getStatusDate'
@@ -134,7 +128,6 @@ class OrderLineStatus extends BaseModel
     public function __construct(array $data = null)
     {
         $this->setIfExists('status', $data ?? [], null);
-        $this->setIfExists('statusCode', $data ?? [], null);
         $this->setIfExists('statusQuantity', $data ?? [], null);
         $this->setIfExists('cancellationReason', $data ?? [], null);
         $this->setIfExists('statusDate', $data ?? [], null);
@@ -148,8 +141,6 @@ class OrderLineStatus extends BaseModel
     public function listInvalidProperties()
     {
         $invalidProperties = [];
-
-
         return $invalidProperties;
     }
 
@@ -177,44 +168,14 @@ class OrderLineStatus extends BaseModel
         if (is_null($status)) {
             throw new \InvalidArgumentException('non-nullable status cannot be null');
         }
-
         $this->container['status'] = $status;
-        return $this;
-    }
-
-    /**
-     * Gets statusCode
-     *
-     * @return string|null
-    
-     */
-    public function getStatusCode()
-    {
-        return $this->container['statusCode'];
-    }
-
-    /**
-     * Sets statusCode
-     *
-     * @param string|null $statusCode statusCode
-     *
-     * @return self
-    
-     */
-    public function setStatusCode($statusCode)
-    {
-        if (is_null($statusCode)) {
-            throw new \InvalidArgumentException('non-nullable statusCode cannot be null');
-        }
-
-        $this->container['statusCode'] = $statusCode;
         return $this;
     }
 
     /**
      * Gets statusQuantity
      *
-     * @return \Walmart\Models\MP\CL\Orders\StatusQuantity|null
+     * @return \Walmart\Models\MP\CL\Orders\OrderLineQuantity|null
     
      */
     public function getStatusQuantity()
@@ -225,7 +186,7 @@ class OrderLineStatus extends BaseModel
     /**
      * Sets statusQuantity
      *
-     * @param \Walmart\Models\MP\CL\Orders\StatusQuantity|null $statusQuantity statusQuantity
+     * @param \Walmart\Models\MP\CL\Orders\OrderLineQuantity|null $statusQuantity statusQuantity
      *
      * @return self
     
@@ -235,7 +196,6 @@ class OrderLineStatus extends BaseModel
         if (is_null($statusQuantity)) {
             throw new \InvalidArgumentException('non-nullable statusQuantity cannot be null');
         }
-
         $this->container['statusQuantity'] = $statusQuantity;
         return $this;
     }
@@ -264,7 +224,6 @@ class OrderLineStatus extends BaseModel
         if (is_null($cancellationReason)) {
             throw new \InvalidArgumentException('non-nullable cancellationReason cannot be null');
         }
-
         $this->container['cancellationReason'] = $cancellationReason;
         return $this;
     }
@@ -293,7 +252,6 @@ class OrderLineStatus extends BaseModel
         if (is_null($statusDate)) {
             throw new \InvalidArgumentException('non-nullable statusDate cannot be null');
         }
-
         $this->container['statusDate'] = $statusDate;
         return $this;
     }

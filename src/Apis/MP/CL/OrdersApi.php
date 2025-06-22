@@ -1155,7 +1155,7 @@ class OrdersApi extends BaseApi
      *
      * @throws \Walmart\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Walmart\Models\MP\CL\Orders\WFSOrderResponse|\Walmart\Models\MP\CL\Orders\ErrorResponse|\Walmart\Models\MP\CL\Orders\ErrorResponse
+     * @return \Walmart\Models\MP\CL\Orders\WFSOrderListResponse
      */
     public function getAllOrders(
         ?string $createdStartDate = 'NOW-180DAYS',
@@ -1165,8 +1165,16 @@ class OrdersApi extends BaseApi
         ?string $customerOrderId = null,
         ?string $purchaseOrderId = null,
         ?string $statusCodeFilter = null
-    ): \Walmart\Models\MP\CL\Orders\WFSOrderResponse {
-        return $this->getAllOrdersWithHttpInfo($createdStartDate, $createdEndDate, $limit, $offset, $customerOrderId, $purchaseOrderId, $statusCodeFilter);
+    ): \Walmart\Models\MP\CL\Orders\WFSOrderListResponse {
+        return $this->getAllOrdersWithHttpInfo(
+            $createdStartDate,
+            $createdEndDate,
+            $limit,
+            $offset,
+            $customerOrderId,
+            $purchaseOrderId,
+            $statusCodeFilter
+        );
     }
 
     /**
@@ -1184,7 +1192,7 @@ class OrdersApi extends BaseApi
      *
      * @throws \Walmart\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Walmart\Models\MP\CL\Orders\WFSOrderResponse|\Walmart\Models\MP\CL\Orders\ErrorResponse|\Walmart\Models\MP\CL\Orders\ErrorResponse
+     * @return \Walmart\Models\MP\CL\Orders\WFSOrderListResponse
      */
     protected function getAllOrdersWithHttpInfo(
         ?string $createdStartDate = 'NOW-180DAYS',
@@ -1194,32 +1202,21 @@ class OrdersApi extends BaseApi
         ?string $customerOrderId = null,
         ?string $purchaseOrderId = null,
         ?string $statusCodeFilter = null,
-    ): \Walmart\Models\MP\CL\Orders\WFSOrderResponse {
+    ): \Walmart\Models\MP\CL\Orders\WFSOrderListResponse {
         $request = $this->getAllOrdersRequest($createdStartDate, $createdEndDate, $limit, $offset, $customerOrderId, $purchaseOrderId, $statusCodeFilter);
-        $this->writeDebug($request);
-        $this->writeDebug((string) $request->getBody());
 
         try {
             $options = $this->createHttpClientOption();
             try {
                 $response = $this->client->send($request, $options);
-                $this->writeDebug($response);
-                $this->writeDebug((string) $response->getBody());
             } catch (RequestException $e) {
-                $hasResponse = !empty($e->hasResponse());
-                $body = (string) ($hasResponse ? $e->getResponse()->getBody() : '[NULL response]');
-                $this->writeDebug($e->getResponse());
-                $this->writeDebug($body);
-
                 throw new ApiException(
-                    "[{$e->getCode()}] {$body}",
+                    "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $hasResponse ? $e->getResponse()->getHeaders() : null,
-                    $body
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
                 );
             } catch (ConnectException $e) {
-                $this->writeDebug($e->getMessage());
-
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -1242,43 +1239,22 @@ class OrdersApi extends BaseApi
                     (string) $response->getBody()
                 );
             }
-            switch ($statusCode) {
+
+            switch($statusCode) {
                 case 200:
-                    if ('\Walmart\Models\MP\CL\Orders\WFSOrderResponse' === '\SplFileObject') {
+                    if ('\Walmart\Models\MP\CL\Orders\WFSOrderListResponse' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
-                        if ('\Walmart\Models\MP\CL\Orders\WFSOrderResponse' !== 'string') {
+                        if ('\Walmart\Models\MP\CL\Orders\WFSOrderListResponse' !== 'string') {
                             $content = json_decode($content);
                         }
                     }
 
-                    return ObjectSerializer::deserialize($content, '\Walmart\Models\MP\CL\Orders\WFSOrderResponse', $response->getHeaders());
-                case 400:
-                    if ('\Walmart\Models\MP\CL\Orders\ErrorResponse' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ('\Walmart\Models\MP\CL\Orders\ErrorResponse' !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return ObjectSerializer::deserialize($content, '\Walmart\Models\MP\CL\Orders\ErrorResponse', $response->getHeaders());
-                case 500:
-                    if ('\Walmart\Models\MP\CL\Orders\ErrorResponse' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ('\Walmart\Models\MP\CL\Orders\ErrorResponse' !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return ObjectSerializer::deserialize($content, '\Walmart\Models\MP\CL\Orders\ErrorResponse', $response->getHeaders());
+                    return ObjectSerializer::deserialize($content, '\Walmart\Models\MP\CL\Orders\WFSOrderListResponse', $response->getHeaders());
             }
 
-            $returnType = '\Walmart\Models\MP\CL\Orders\WFSOrderResponse';
+            $returnType = '\Walmart\Models\MP\CL\Orders\WFSOrderListResponse';
             if ($returnType === '\SplFileObject') {
                 $content = $response->getBody(); //stream goes to serializer
             } else {
@@ -1294,30 +1270,12 @@ class OrdersApi extends BaseApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Walmart\Models\MP\CL\Orders\WFSOrderResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Walmart\Models\MP\CL\Orders\ErrorResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 500:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Walmart\Models\MP\CL\Orders\ErrorResponse',
+                        '\Walmart\Models\MP\CL\Orders\WFSOrderListResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
                     break;
             }
-
-            $this->writeDebug($e);
             throw $e;
         }
     }
@@ -1380,35 +1338,29 @@ class OrdersApi extends BaseApi
         ?string $purchaseOrderId = null,
         ?string $statusCodeFilter = null,
     ): PromiseInterface {
-        $returnType = '\Walmart\Models\MP\CL\Orders\WFSOrderResponse';
+        $returnType = '\Walmart\Models\MP\CL\Orders\WFSOrderListResponse';
         $request = $this->getAllOrdersRequest($createdStartDate, $createdEndDate, $limit, $offset, $customerOrderId, $purchaseOrderId, $statusCodeFilter);
-        $this->writeDebug($request);
-        $this->writeDebug((string) $request->getBody());
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
                 function ($response) use ($returnType) {
-                    $this->writeDebug($response);
-                    $this->writeDebug((string) $response->getBody());
+                    $responseBody = (string) $response->getBody();
                     if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
+                        $content = $responseBody; //stream goes to serializer
                     } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
+                        $content = json_decode($responseBody);
                     }
 
-                    return ObjectSerializer::deserialize($content, $returnType, $response->getHeaders());
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
                 },
                 function ($exception) {
                     $response = $exception->getResponse();
-                    $hasResponse = !empty($response);
-                    $body = (string) ($hasResponse ? $response->getBody() : '[NULL response]');
-                    $this->writeDebug($response);
-                    $statusCode = $hasResponse ? $response->getStatusCode() : $exception->getCode();
-
+                    $statusCode = $response->getStatusCode();
                     throw new ApiException(
                         sprintf(
                             '[%d] Error connecting to the API (%s)',
@@ -1417,7 +1369,7 @@ class OrdersApi extends BaseApi
                         ),
                         $statusCode,
                         $response->getHeaders(),
-                        $body,
+                        $response->getBody()
                     );
                 }
             );
