@@ -49,8 +49,9 @@ class OrderSubTotal extends BaseModel
       * @var string[]
       */
     protected static array $openAPITypes = [
-        'name' => 'string',
-        'amount' => '\Walmart\Models\MP\CL\Orders\Amount'
+        'subTotalType' => 'string',
+        'fundingType' => 'string',
+        'totalAmount' => '\Walmart\Models\MP\CL\Orders\Amount'
     ];
 
     /**
@@ -61,8 +62,9 @@ class OrderSubTotal extends BaseModel
       * @psalm-var array<string, string|null>
       */
     protected static array $openAPIFormats = [
-        'name' => null,
-        'amount' => null
+        'subTotalType' => null,
+        'fundingType' => null,
+        'totalAmount' => null
     ];
 
     /**
@@ -71,8 +73,9 @@ class OrderSubTotal extends BaseModel
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'name' => false,
-        'amount' => false
+        'subTotalType' => false,
+        'fundingType' => true,
+        'totalAmount' => false
     ];
 
     /**
@@ -82,8 +85,9 @@ class OrderSubTotal extends BaseModel
      * @var string[]
      */
     protected static array $attributeMap = [
-        'name' => 'name',
-        'amount' => 'amount'
+        'subTotalType' => 'subTotalType',
+        'fundingType' => 'fundingType',
+        'totalAmount' => 'totalAmount'
     ];
 
     /**
@@ -92,8 +96,9 @@ class OrderSubTotal extends BaseModel
      * @var string[]
      */
     protected static array $setters = [
-        'name' => 'setName',
-        'amount' => 'setAmount'
+        'subTotalType' => 'setSubTotalType',
+        'fundingType' => 'setFundingType',
+        'totalAmount' => 'setTotalAmount'
     ];
 
     /**
@@ -102,8 +107,9 @@ class OrderSubTotal extends BaseModel
      * @var string[]
      */
     protected static array $getters = [
-        'name' => 'getName',
-        'amount' => 'getAmount'
+        'subTotalType' => 'getSubTotalType',
+        'fundingType' => 'getFundingType',
+        'totalAmount' => 'getTotalAmount'
     ];
 
     /**
@@ -114,8 +120,9 @@ class OrderSubTotal extends BaseModel
      */
     public function __construct(array $data = null)
     {
-        $this->setIfExists('name', $data ?? [], null);
-        $this->setIfExists('amount', $data ?? [], null);
+        $this->setIfExists('subTotalType', $data ?? [], null);
+        $this->setIfExists('fundingType', $data ?? [], null);
+        $this->setIfExists('totalAmount', $data ?? [], null);
     }
 
     /**
@@ -127,67 +134,94 @@ class OrderSubTotal extends BaseModel
     {
         $invalidProperties = [];
 
-        if ($this->container['name'] === null) {
-            $invalidProperties[] = "'name' can't be null";
+        if ($this->container['subTotalType'] === null) {
+            $invalidProperties[] = "'subTotalType' can't be null";
         }
-        if ($this->container['amount'] === null) {
-            $invalidProperties[] = "'amount' can't be null";
+        if ($this->container['totalAmount'] === null) {
+            $invalidProperties[] = "'totalAmount' can't be null";
         }
 
         return $invalidProperties;
     }
 
     /**
-     * Gets name
+     * Gets subTotalType
      *
      * @return string
      */
-    public function getName()
+    public function getSubTotalType()
     {
-        return $this->container['name'];
+        return $this->container['subTotalType'];
     }
 
     /**
-     * Sets name
+     * Sets subTotalType
      *
-     * @param string $name name
+     * @param string $subTotalType subTotalType
      *
      * @return self
      */
-    public function setName($name)
+    public function setSubTotalType($subTotalType)
     {
-        if (is_null($name)) {
-            throw new \InvalidArgumentException('non-nullable name cannot be null');
+        if (is_null($subTotalType)) {
+            throw new \InvalidArgumentException('non-nullable subTotalType cannot be null');
         }
 
-        $this->container['name'] = $name;
+        $this->container['subTotalType'] = $subTotalType;
         return $this;
     }
 
     /**
-     * Gets amount
+     * Gets fundingType
      *
-     * @return \Walmart\Models\MP\CL\Orders\Amount
+     * @return string
      */
-    public function getAmount()
+    public function getFundingType()
     {
-        return $this->container['amount'];
+        return $this->container['fundingType'];
     }
 
     /**
-     * Sets amount
+     * Sets fundingType
      *
-     * @param \Walmart\Models\MP\CL\Orders\Amount $amount amount
+     * @param string $fundingType fundingType
      *
      * @return self
      */
-    public function setAmount($amount)
+    public function setFundingType($fundingType)
     {
-        if (is_null($amount)) {
-            throw new \InvalidArgumentException('non-nullable amount cannot be null');
+        if (is_null($fundingType)) {
+            $this->container['fundingType'] = null;
+            return $this;
+        }
+        $this->container['fundingType'] = $fundingType;
+        return $this;
+    }
+
+    /**
+     * Gets totalAmount
+     *
+     * @return \Walmart\Models\MP\CL\Orders\Amount
+     */
+    public function getTotalAmount()
+    {
+        return $this->container['totalAmount'];
+    }
+
+    /**
+     * Sets totalAmount
+     *
+     * @param \Walmart\Models\MP\CL\Orders\Amount $totalAmount totalAmount
+     *
+     * @return self
+     */
+    public function setTotalAmount($totalAmount)
+    {
+        if (is_null($totalAmount)) {
+            throw new \InvalidArgumentException('non-nullable totalAmount cannot be null');
         }
 
-        $this->container['amount'] = $amount;
+        $this->container['totalAmount'] = $totalAmount;
         return $this;
     }
 } 
